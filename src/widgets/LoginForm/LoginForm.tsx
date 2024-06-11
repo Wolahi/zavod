@@ -20,7 +20,7 @@ const LoginFrom = (): React.ReactElement => {
   const onSubmit = (data: ILoginForm) => console.log(data);
 
   return (
-    <form className={styles.login__form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
       <Typography.Title>Вход в систему</Typography.Title>
       <Controller
         control={control}
@@ -52,7 +52,7 @@ const LoginFrom = (): React.ReactElement => {
             error={error?.message}
             suffix={
               <button
-                className={styles.password_button}
+                className={styles.passwordShowButton}
                 type={"button"}
                 onClick={() => setIsClose((prev) => !prev)}
               >
