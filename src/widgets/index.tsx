@@ -1,3 +1,3 @@
-import LoginForm from "./LoginForm/LoginForm.tsx";
+import UsersList from "@/widgets/UsersList/ui/UsersList.tsx";
 
-export { LoginForm };
+export { UsersList };

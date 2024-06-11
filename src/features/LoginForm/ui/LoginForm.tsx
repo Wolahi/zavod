@@ -6,9 +6,9 @@ import { Button } from "antd";
 
 import styles from "./style.module.scss";
 
+import { loginSchema } from "@/features/LoginForm/config/LoginSchema/LoginSchema.ts";
+import type { ILoginForm } from "@/features/LoginForm/ui/interfaces/ILoginForm.ts";
 import { Input, Typography } from "@/shared";
-import { loginSchema } from "@/widgets/LoginForm/config/LoginSchema/LoginSchema.ts";
-import type { ILoginForm } from "@/widgets/LoginForm/interfaces/ILoginForm.ts";
 
 const LoginFrom = (): React.ReactElement => {
   const [isClose, setIsClose] = useState(true);
