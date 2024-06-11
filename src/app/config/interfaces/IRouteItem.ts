@@ -1,7 +1,10 @@
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
+import { ERoute } from "@/app/config/routes.tsx";
 
 export interface IRouteItem {
-    path: string;
-    element: ReactElement;
+  path: ERoute;
+  element: ReactElement;
+  title?: string;
+  icon?: ReactElement;
 }

@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 
-import RoutesMap from "./module/provider/RoutesMap.tsx";
-
 import "./styles/App.scss";
+
+import Layout from "@/app/ui/Layout/ui/Layout";
 
 const App = (): React.ReactElement => {
   return (
     <BrowserRouter>
-      <RoutesMap />
+      <Layout />
     </BrowserRouter>
   );
 };
