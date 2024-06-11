@@ -1,0 +1,79 @@
+@import "@/app/styles/breakpoints";
+
+.typography {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: normal;
+}
+
+.p {
+  font-size: 16px;
+
+  @media screen and (max-width: map-get($breakpoints, md)) {
+    font-size: 14px;
+  }
+}
+
+.h1 {
+  font-weight: bold;
+  font-size: 64px;
+}
+
+.h2 {
+  font-weight: bold;
+  font-size: 48px;
+
+  @media screen and (max-width: map-get($breakpoints, md)) {
+    font-size: 36px;
+  }
+}
+
+.h3 {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 36px;
+
+  @media screen and (max-width: map-get($breakpoints, md)) {
+    font-size: 28px;
+  }
+
+  @media screen and (max-width: map-get($breakpoints, sm)) {
+    font-size: 24px;
+  }
+}
+
+.subtitle {
+  font-size: 12px;
+  font-weight: initial;
+  color: var(--grey-color);
+
+  @media screen and (max-width: map-get($breakpoints, sm)) {
+    font-size: 10px;
+  }
+}
+
+.italic {
+  font-family: "21 Cent Italic", sans-serif;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.description {
+  font-size: 12px;
+  color: var(--grey-color);
+  font-weight: normal;
+
+  @media screen and (max-width: map-get($breakpoints, xs)) {
+    font-size: 8px;
+  }
+}
+
+.textM {
+  font-size: 20px;
+  font-weight: normal;
+}

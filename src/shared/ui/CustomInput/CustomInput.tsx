@@ -1,6 +1,9 @@
-import { Input, Typography } from "antd";
+import { Input } from "antd";
 
-import type { ICustomInputProps } from "@/shared/ui/CustomInput/ICustomInputProps.tsx";
+import styles from "./CustomInput.module.scss";
+
+import { Typography } from "@/shared";
+import type { ICustomInputProps } from "@/shared/ui/CustomInput/intrefaces/ICustomInputProps.ts";
 
 const CustomInput = ({
   label,
@@ -8,13 +11,17 @@ const CustomInput = ({
   error,
   ...props
 }: ICustomInputProps) => (
-  <div>
-    {label && <Typography style={{ color: "#b7b7b7" }}>{label}</Typography>}
+  <div className={styles.root}>
+    {label && (
+      <Typography type={"subtitle"} style={{ color: "#b7b7b7" }}>
+        {label}
+      </Typography>
+    )}
     <Input name={name} {...props} status={error && "error"} />
     {error && (
-      <Typography.Paragraph style={{ color: "#e74c3c" }}>
+      <Typography type={"description"} style={{ color: "#e74c3c" }}>
         {error}
-      </Typography.Paragraph>
+      </Typography>
     )}
   </div>
 );

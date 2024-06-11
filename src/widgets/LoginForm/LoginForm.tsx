@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Typography } from "antd";
+import { Button } from "antd";
 
 import styles from "./style.module.scss";
 
-import CustomInput from "@/shared/ui/CustomInput/CustomInput.tsx";
+import { Input, Typography } from "@/shared";
 import { loginSchema } from "@/widgets/LoginForm/config/LoginSchema/LoginSchema.ts";
 import type { ILoginForm } from "@/widgets/LoginForm/interfaces/ILoginForm.ts";
 
@@ -21,12 +21,12 @@ const LoginFrom = (): React.ReactElement => {
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
-      <Typography.Title>Вход в систему</Typography.Title>
+      <Typography type={"title"}>Вход в систему</Typography>
       <Controller
         control={control}
         name="login"
         render={({ field: { value, onChange }, fieldState: { error } }) => (
-          <CustomInput
+          <Input
             value={value?.trim()}
             onChange={onChange}
             label={"Логин"}
@@ -40,7 +40,7 @@ const LoginFrom = (): React.ReactElement => {
         control={control}
         name="password"
         render={({ field: { value, onChange }, fieldState: { error } }) => (
-          <CustomInput
+          <Input
             label={"Пароль"}
             value={value?.trim()}
             onChange={onChange}
