@@ -28,7 +28,7 @@ const Layout = () => {
           onBreakpoint={() => setCollapsed(true)}
           theme={"light"}
         >
-          <SideBar collapsed={collapsed} />
+          <SideBar />
         </Slider>
       )}
       <Content className={styles.content}>

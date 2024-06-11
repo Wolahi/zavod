@@ -1,0 +1,23 @@
+@import "@/app/styles/breakpoints";
+
+.drawerBody {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+}
+
+.drawerHeader {
+	display: flex;
+	justify-content: flex-start;
+	gap: 5px;
+	
+	@media screen and (max-width: map-get($breakpoints, sm)) {
+		flex-direction: column;
+	}
+}
+
+.buttonsWrapper {
+	display: flex;
+	gap: 5px;
+}

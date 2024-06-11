@@ -76,4 +76,8 @@
 .textM {
   font-size: 20px;
   font-weight: normal;
+  
+  @media screen and (max-width: map-get($breakpoints, xs)) {
+    font-size: 16px;
+  }
 }

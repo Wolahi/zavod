@@ -3,10 +3,9 @@ import { useNavigate } from "react-router";
 import { Menu } from "antd";
 
 import { ERoute, routes, sideBarIgnoreRouts } from "@/app/config/routes.tsx";
-import { ISideBarProps } from "@/widgets/SideBar/ui/interfaces/ISideBarProps.ts";
 import { TMenuItem } from "@/widgets/SideBar/ui/interfaces/TMenuItem.ts";
 
-const SideBar = ({ collapsed }: ISideBarProps): ReactElement => {
+const SideBar = (): ReactElement => {
   const navigate = useNavigate();
 
   const items: TMenuItem[] = useMemo(
@@ -28,7 +27,6 @@ const SideBar = ({ collapsed }: ISideBarProps): ReactElement => {
       theme={"light"}
       defaultSelectedKeys={[ERoute.Users]}
       items={items}
-      inlineCollapsed={collapsed}
     />
   );
 };
