@@ -1,3 +1,4 @@
-import UserCard from "@/entities/UserCard/ui/UserCard.tsx";
+import ReportCard from '@/entities/ReportCard/ui/ReportCard.tsx';
+import UserCard from '@/entities/UserCard/ui/UserCard.tsx';
 
-export { UserCard };
+export { UserCard, ReportCard };

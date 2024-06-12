@@ -3,7 +3,7 @@ import { Button } from 'antd';
 
 import styles from './DrawerFormExtra.module.scss';
 
-import type { IDrawerFormExtra } from '@/shared/ui/DrawerFormExtra/interfaces/IDrawerFormExtra';
+import type { IDrawerFormExtra } from '@/shared/ui/DrawerFormExtra/ui/interfaces/IDrawerFormExtra';
 
 export const DrawerFormExtra = ({
   handleSubmit,

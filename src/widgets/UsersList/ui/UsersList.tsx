@@ -5,7 +5,7 @@ import { FloatButton } from 'antd';
 import styles from './UsersList.module.scss';
 
 import { UserCard } from '@/entities';
-import { DrawerForm, DrawerNewUserForm } from '@/features';
+import { DrawerEditUserForm, DrawerNewUserForm } from '@/features';
 import type { IUserPreview } from '@/shared/config/interfaces/IUser.ts';
 import { userPreviewMock } from '@/shared/config/userPreviewMock.ts';
 
@@ -49,7 +49,7 @@ const UsersList = (): ReactElement => {
           onClick={() => handleEditDrawer(user)}
         />
       ))}
-      <DrawerForm
+      <DrawerEditUserForm
         user={userData}
         open={openEdit}
         onClose={onCloseEdit}

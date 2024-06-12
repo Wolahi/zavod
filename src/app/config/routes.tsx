@@ -1,13 +1,18 @@
-import { AreaChartOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  AreaChartOutlined,
+  AuditOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
 import { IRouteItem } from "./interfaces/IRouteItem.ts";
 
-import { Login, NotFound, Statistic, Users } from "@/pages";
+import { Login, NotFound, Reports, Statistic, Users } from "@/pages";
 
 export enum ERoute {
   Login = "/",
   Users = "/users",
   Statistics = "/statistics",
+  Reports = "/reports",
   NotFound = "*",
 }
 
@@ -29,6 +34,12 @@ export const routes: IRouteItem[] = [
     element: <Statistic />,
     title: "Статистика",
     icon: <AreaChartOutlined />,
+  },
+  {
+    path: ERoute.Reports,
+    element: <Reports />,
+    title: "Отчеты",
+    icon: <AuditOutlined />,
   },
   {
     path: ERoute.NotFound,

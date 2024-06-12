@@ -3,16 +3,21 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Drawer } from 'antd';
 
-import styles from './DrawerForm.module.scss';
+import styles from './DrawerEditUserForm.module.scss';
 
-import { drawerFormSchema } from '@/features/DrawerForm/config/drawerFormSchema.ts';
-import type { IDrawer } from '@/features/DrawerForm/ui/interfaces/IDrawer.ts';
-import type { IDrawerForm } from '@/features/DrawerForm/ui/interfaces/IDrawerForm.ts';
+import { drawerFormSchema } from '@/features/DrawerEditUserForm/config/drawerFormSchema.ts';
+import type { IDrawer } from '@/features/DrawerEditUserForm/ui/interfaces/IDrawer.ts';
+import type { IDrawerForm } from '@/features/DrawerEditUserForm/ui/interfaces/IDrawerForm.ts';
 import { DrawerFormExtra } from '@/shared';
 import { Input, Select, Typography } from '@/shared';
 import { rolesOptions } from '@/shared/config/rolesOption.ts';
 
-const DrawerForm = ({ user, open, label, onClose }: IDrawer): ReactElement => {
+const DrawerEditUserForm = ({
+  user,
+  open,
+  label,
+  onClose,
+}: IDrawer): ReactElement => {
   const { control, handleSubmit, reset } = useForm<IDrawerForm>({
     resolver: yupResolver(drawerFormSchema),
   });
@@ -109,4 +114,4 @@ const DrawerForm = ({ user, open, label, onClose }: IDrawer): ReactElement => {
   );
 };
 
-export default DrawerForm;
+export default DrawerEditUserForm;
