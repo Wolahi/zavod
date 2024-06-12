@@ -4,3 +4,11 @@
   justify-content: center;
   gap: 15px;
 }
+
+.floatButton {
+  &:hover {
+    .floatButtonIcon {
+      color: #1677ff;
+    }
+  }
+}

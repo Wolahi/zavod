@@ -1,18 +1,18 @@
-import { ReactElement, useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { DeleteOutlined } from "@ant-design/icons";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Drawer } from "antd";
+import { ReactElement, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Drawer } from 'antd';
 
-import styles from "./DrawerForm.module.scss";
+import styles from './DrawerForm.module.scss';
 
-import { drawerFormSchema } from "@/features/DrawerForm/config/drawerFormSchema.ts";
-import type { IDrawer } from "@/features/DrawerForm/ui/interfaces/IDrawer.ts";
-import type { IDrawerForm } from "@/features/DrawerForm/ui/interfaces/IDrawerForm.ts";
-import { Input, Select, Typography } from "@/shared";
-import { rolesOptions } from "@/shared/config/rolesOption.ts";
+import { drawerFormSchema } from '@/features/DrawerForm/config/drawerFormSchema.ts';
+import type { IDrawer } from '@/features/DrawerForm/ui/interfaces/IDrawer.ts';
+import type { IDrawerForm } from '@/features/DrawerForm/ui/interfaces/IDrawerForm.ts';
+import { DrawerFormExtra } from '@/shared';
+import { Input, Select, Typography } from '@/shared';
+import { rolesOptions } from '@/shared/config/rolesOption.ts';
 
-const DrawerForm = ({ user, open, onClose }: IDrawer): ReactElement => {
+const DrawerForm = ({ user, open, label, onClose }: IDrawer): ReactElement => {
   const { control, handleSubmit, reset } = useForm<IDrawerForm>({
     resolver: yupResolver(drawerFormSchema),
   });
@@ -25,72 +25,63 @@ const DrawerForm = ({ user, open, onClose }: IDrawer): ReactElement => {
     });
   }, [user, reset]);
 
+  const isChanged = (data: IDrawerForm) =>
+    user?.login !== data.login ||
+    user?.department !== data.department ||
+    user?.role !== data.role;
+
   const onSubmit = (data: IDrawerForm) => {
-    if (
-      user?.login !== data.login ||
-      user?.department !== data.department ||
-      user?.role !== data.role
-    ) {
+    if (isChanged(data)) {
       console.log(data);
     } else {
-      console.log("Изменять нечего");
+      console.log('Изменять нечего');
     }
     onClose();
+  };
+
+  const onDelete = () => {
+    console.log('deleted');
   };
 
   return (
     <form>
       <Drawer
-        placement={"right"}
+        styles={{ body: { padding: '15px' } }}
+        placement={'right'}
         width={520}
         onClose={onClose}
         open={open}
         extra={
-          <div className={styles.buttonsWrapper}>
-            <Button
-              type="primary"
-              htmlType={"submit"}
-              onClick={handleSubmit(onSubmit)}
-            >
-              Обновить
-            </Button>
-            <Button
-              type={"primary"}
-              danger
-              style={{
-                padding: "10px",
-              }}
-            >
-              <DeleteOutlined />
-            </Button>
-          </div>
+          <DrawerFormExtra
+            handleSubmit={handleSubmit(onSubmit)}
+            onDelete={onDelete}
+          />
         }
       >
         <div className={styles.drawerBody}>
-          <Typography type={"textM"}>Редактирование пользователя</Typography>
+          <Typography type={'textM'}>{label}</Typography>
           <Controller
             control={control}
-            name="login"
+            name='login'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <Input
                 value={value?.trim()}
-                label={"Логин"}
-                name={"login"}
-                placeholder={"Введите логин"}
+                label={'Логин'}
+                name={'login'}
+                placeholder={'Введите логин'}
                 error={error?.message}
                 onChange={onChange}
               />
             )}
           />
-
           <Controller
             control={control}
-            name="role"
+            name='role'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <Select
                 value={value}
-                label={"Роль"}
-                placeholder={"Выберите роль"}
+                label={'Роль'}
+                placeholder={'Выберите роль'}
                 options={rolesOptions}
                 onChange={onChange}
                 error={error?.message}
@@ -98,16 +89,15 @@ const DrawerForm = ({ user, open, onClose }: IDrawer): ReactElement => {
               />
             )}
           />
-
           <Controller
             control={control}
-            name="department"
+            name='department'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <Input
-                value={value?.trim()}
-                label={"Отдел"}
-                name={"department"}
-                placeholder={"Введите отдел"}
+                value={value}
+                label={'Отдел'}
+                name={'department'}
+                placeholder={'Введите отдел'}
                 error={error?.message}
                 onChange={onChange}
               />
