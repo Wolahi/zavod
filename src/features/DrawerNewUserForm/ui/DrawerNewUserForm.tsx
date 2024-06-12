@@ -1,7 +1,10 @@
 import { ReactElement, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Drawer } from 'antd';
+
+import { drawerNewUserFormSchema } from '../config/drawerNewUserFormSchema';
 
 import { IDrawerNewUser } from './interfaces/IDrawerNewUser';
 import { IDrawerNewUserForm } from './interfaces/IDrawerNewUserForm';
@@ -12,12 +15,15 @@ import { Input, Select, Typography } from '@/shared';
 import { rolesOptions } from '@/shared/config/rolesOption.ts';
 
 const DrawerNewUserForm = ({ open, onClose }: IDrawerNewUser): ReactElement => {
-  const { control, handleSubmit } = useForm<IDrawerNewUserForm>();
+  const { control, handleSubmit, reset } = useForm<IDrawerNewUserForm>({
+    resolver: yupResolver(drawerNewUserFormSchema),
+  });
   const [isClose, setIsClose] = useState(true);
 
   const onSubmit = (data: IDrawerNewUserForm) => {
     console.log(data);
-    //onClose();
+    reset();
+    onClose();
   };
 
   return (

@@ -1,11 +1,5 @@
 @import '@/app/styles/breakpoints';
 
-.drawer {
-  &.ant-drawer-body {
-    padding: 0 !important;
-  }
-}
-
 .drawerBody {
   display: flex;
   flex-direction: column;
