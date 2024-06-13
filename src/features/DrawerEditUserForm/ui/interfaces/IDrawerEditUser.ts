@@ -1,6 +1,6 @@
 import type { IUserPreview } from '@/shared/config/interfaces/IUser.ts';
 
-export interface IDrawer {
+export interface IDrawerEditUser {
   user?: IUserPreview;
   open: boolean;
   label: string;

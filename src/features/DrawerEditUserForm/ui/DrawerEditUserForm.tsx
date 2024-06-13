@@ -6,8 +6,8 @@ import { Drawer } from 'antd';
 import styles from './DrawerEditUserForm.module.scss';
 
 import { drawerFormSchema } from '@/features/DrawerEditUserForm/config/drawerFormSchema.ts';
-import type { IDrawer } from '@/features/DrawerEditUserForm/ui/interfaces/IDrawer.ts';
-import type { IDrawerForm } from '@/features/DrawerEditUserForm/ui/interfaces/IDrawerForm.ts';
+import type { IDrawerEditUser } from '@/features/DrawerEditUserForm/ui/interfaces/IDrawerEditUser';
+import type { IDrawerEditUserForm } from '@/features/DrawerEditUserForm/ui/interfaces/IDrawerEditUserForm';
 import { DrawerFormExtra } from '@/shared';
 import { Input, Select, Typography } from '@/shared';
 import { rolesOptions } from '@/shared/config/rolesOption.ts';
@@ -17,8 +17,8 @@ const DrawerEditUserForm = ({
   open,
   label,
   onClose,
-}: IDrawer): ReactElement => {
-  const { control, handleSubmit, reset } = useForm<IDrawerForm>({
+}: IDrawerEditUser): ReactElement => {
+  const { control, handleSubmit, reset } = useForm<IDrawerEditUserForm>({
     resolver: yupResolver(drawerFormSchema),
   });
 
@@ -30,12 +30,12 @@ const DrawerEditUserForm = ({
     });
   }, [user, reset]);
 
-  const isChanged = (data: IDrawerForm) =>
+  const isChanged = (data: IDrawerEditUserForm) =>
     user?.login !== data.login ||
     user?.department !== data.department ||
     user?.role !== data.role;
 
-  const onSubmit = (data: IDrawerForm) => {
+  const onSubmit = (data: IDrawerEditUserForm) => {
     if (isChanged(data)) {
       console.log(data);
     } else {

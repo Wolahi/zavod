@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const drawerNewReportFormSchema = yup.object().shape({
+export const drawerReportFormSchema = yup.object().shape({
   department: yup.string().required('Отдел обязателен'),
   object: yup.string().required('Объект обязателен'),
   assortment: yup.string().required('Сортамент обязателен'),

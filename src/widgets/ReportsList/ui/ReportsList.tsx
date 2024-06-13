@@ -5,35 +5,47 @@ import { FloatButton } from 'antd';
 import styles from './reportsList.module.scss';
 
 import { ReportCard } from '@/entities';
-import { DrawerNewReportForm } from '@/features';
+import { DrawerReportForm } from '@/features';
+import { IReport } from '@/shared/config/interfaces/IReport';
 import { reportPreviewMock } from '@/shared/config/reportPreviewMock';
 
 const ReportsList = (): React.ReactElement => {
-  const [openNew, setOpenNew] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [reportData, setReportData] = useState<IReport | null>(null);
 
-  const showNewDrawer = () => {
-    setOpenNew(true);
+  const showDrawer = () => {
+    setOpen(true);
   };
 
-  const onCloseNew = () => {
-    setOpenNew(false);
+  const onClose = () => {
+    setOpen(false);
   };
 
-  const handleNewDrawer = () => {
-    showNewDrawer();
+  const handleDrawer = (report?: IReport) => {
+    if (report) {
+      setReportData(report);
+      console.log(report);
+    } else {
+      setReportData(null);
+    }
+    showDrawer();
   };
 
   return (
     <div className={styles.root}>
       {reportPreviewMock.map((report) => (
-        <ReportCard key={report.id} report={report} />
+        <ReportCard
+          key={report.id}
+          report={report}
+          onClick={() => handleDrawer(report)}
+        />
       ))}
       <FloatButton
-        onClick={() => handleNewDrawer()}
+        onClick={() => handleDrawer()}
         icon={<FileAddOutlined className={styles.floatButtonIcon} />}
         className={styles.floatButton}
       />
-      <DrawerNewReportForm open={openNew} onClose={onCloseNew} />
+      <DrawerReportForm open={open} onClose={onClose} report={reportData} />
     </div>
   );
 };

@@ -1,27 +1,43 @@
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Drawer } from 'antd';
 
-import { IDrawerNewReport } from './interfaces/IDrawerNewReport';
-import { IDrawerNewReportForm } from './interfaces/IDrawerNewReportForm';
+import { drawerReportFormSchema } from '../config/drawerReportFormSchema';
 
-import styles from './DrawerNewReportForm.module.scss';
+import { IDrawerReport } from './interfaces/IDrawerReport';
+import { IDrawerReportForm } from './interfaces/IDrawerReportForm';
 
-import { drawerNewReportFormSchema } from '@/features/DrawerNewReportForm/config/drawerNewReportFormSchema.ts';
-import { Input, Typography } from '@/shared';
+import styles from './DrawerReportForm.module.scss';
+
+import { DrawerFormExtra, Input, Typography } from '@/shared';
 
 const DrawerNewUserForm = ({
+  report,
   open,
   onClose,
-}: IDrawerNewReport): React.ReactElement => {
-  const { control, handleSubmit } = useForm<IDrawerNewReportForm>({
-    resolver: yupResolver(drawerNewReportFormSchema),
+}: IDrawerReport): React.ReactElement => {
+  const { control, handleSubmit, reset } = useForm<IDrawerReportForm>({
+    resolver: yupResolver(drawerReportFormSchema),
   });
 
-  const onSubmit = (data: IDrawerNewReportForm) => {
+  useEffect(() => {
+    reset({
+      object: report?.object.name,
+      assortment: report?.assortment.name,
+      department: report?.department,
+      count: report?.count ? parseInt(report?.count) : 0,
+    });
+  }, [report, reset]);
+
+  const onSubmit = (data: IDrawerReportForm) => {
     console.log(data);
     //reset();
     //onClose();
+  };
+
+  const onDelete = () => {
+    console.log('deleted');
   };
 
   return (
@@ -33,19 +49,28 @@ const DrawerNewUserForm = ({
         onClose={onClose}
         open={open}
         extra={
-          <div className={styles.buttonsWrapper}>
-            <Button
-              type='primary'
-              htmlType={'submit'}
-              onClick={handleSubmit(onSubmit)}
-            >
-              Загрузить
-            </Button>
-          </div>
+          report ? (
+            <DrawerFormExtra
+              handleSubmit={handleSubmit(onSubmit)}
+              onDelete={onDelete}
+            />
+          ) : (
+            <div className={styles.buttonsWrapper}>
+              <Button
+                type='primary'
+                htmlType={'submit'}
+                onClick={handleSubmit(onSubmit)}
+              >
+                Загрузить
+              </Button>
+            </div>
+          )
         }
       >
         <div className={styles.drawerBody}>
-          <Typography type={'textM'}>Добавление отчета</Typography>
+          <Typography type={'textM'}>
+            {report ? 'Редактирование отчета' : 'Добавление отчета'}
+          </Typography>
           <Controller
             control={control}
             name='department'
