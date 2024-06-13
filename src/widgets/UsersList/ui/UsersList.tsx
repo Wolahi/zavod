@@ -5,39 +5,29 @@ import { FloatButton } from 'antd';
 import styles from './UsersList.module.scss';
 
 import { UserCard } from '@/entities';
-import { DrawerEditUserForm, DrawerNewUserForm } from '@/features';
+import { DrawerUserForm } from '@/features';
 import type { IUserPreview } from '@/shared/config/interfaces/IUser.ts';
 import { userPreviewMock } from '@/shared/config/userPreviewMock.ts';
 
 const UsersList = (): ReactElement => {
-  const [userData, setUserData] = useState<IUserPreview>();
-  const [openEdit, setOpenEdit] = useState(false);
-  const [openNew, setOpenNew] = useState(false);
+  const [userData, setUserData] = useState<IUserPreview | null>(null);
+  const [open, setOpen] = useState(false);
 
-  const showEditDrawer = () => {
-    setOpenEdit(true);
+  const showDrawer = () => {
+    setOpen(true);
   };
 
-  const onCloseEdit = () => {
-    setOpenEdit(false);
+  const onClose = () => {
+    setOpen(false);
   };
 
-  const handleEditDrawer = (user: IUserPreview) => {
-    setUserData(user);
-    console.log(user);
-    showEditDrawer();
-  };
-
-  const showNewDrawer = () => {
-    setOpenNew(true);
-  };
-
-  const onCloseNew = () => {
-    setOpenNew(false);
-  };
-
-  const handleNewDrawer = () => {
-    showNewDrawer();
+  const handleDrawer = (user?: IUserPreview) => {
+    if (user) {
+      setUserData(user);
+    } else {
+      setUserData(null);
+    }
+    showDrawer();
   };
 
   return (
@@ -46,21 +36,15 @@ const UsersList = (): ReactElement => {
         <UserCard
           key={user.id}
           user={user}
-          onClick={() => handleEditDrawer(user)}
+          onClick={() => handleDrawer(user)}
         />
       ))}
-      <DrawerEditUserForm
-        user={userData}
-        open={openEdit}
-        onClose={onCloseEdit}
-        label={'Редактирование пользователя'}
-      />
+      <DrawerUserForm user={userData} open={open} onClose={onClose} />
       <FloatButton
-        onClick={() => handleNewDrawer()}
+        onClick={() => handleDrawer()}
         icon={<UserAddOutlined className={styles.floatButtonIcon} />}
         className={styles.floatButton}
       />
-      <DrawerNewUserForm open={openNew} onClose={onCloseNew} />
     </div>
   );
 };

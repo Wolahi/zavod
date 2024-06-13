@@ -1,4 +1,5 @@
 import { DrawerFormExtra } from './ui/DrawerFormExtra/ui/DrawerFormExtra';
+import PasswordButtonEye from './ui/PasswordButtonEye/ui/PasswordButtonEye';
 
 import CustomInput from '@/shared/ui/CustomInput/CustomInput';
 import CustomSelect from '@/shared/ui/CustomSelect/ui/CustomSelect';
@@ -9,4 +10,5 @@ export {
   CustomTypography as Typography,
   CustomSelect as Select,
   DrawerFormExtra,
+  PasswordButtonEye,
 };

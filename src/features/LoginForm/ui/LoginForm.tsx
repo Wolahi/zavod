@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from 'antd';
 
@@ -8,7 +7,7 @@ import styles from './style.module.scss';
 
 import { loginSchema } from '@/features/LoginForm/config/LoginSchema/LoginSchema.ts';
 import type { ILoginForm } from '@/features/LoginForm/ui/interfaces/ILoginForm.ts';
-import { Input, Typography } from '@/shared';
+import { Input, PasswordButtonEye, Typography } from '@/shared';
 
 const LoginFrom = (): React.ReactElement => {
   const [isClose, setIsClose] = useState(true);
@@ -51,17 +50,10 @@ const LoginFrom = (): React.ReactElement => {
             type={isClose ? 'password' : 'text'}
             error={error?.message}
             suffix={
-              <button
-                className={styles.passwordShowButton}
-                type={'button'}
+              <PasswordButtonEye
+                isClose={isClose}
                 onClick={() => setIsClose((prev) => !prev)}
-              >
-                {isClose ? (
-                  <EyeInvisibleOutlined />
-                ) : (
-                  <EyeOutlined style={{ color: '#1677ff' }} />
-                )}
-              </button>
+              />
             }
           />
         )}
