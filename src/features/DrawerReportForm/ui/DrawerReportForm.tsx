@@ -10,7 +10,7 @@ import { IDrawerReportForm } from './interfaces/IDrawerReportForm';
 
 import styles from './DrawerReportForm.module.scss';
 
-import { DrawerFormExtra, Input, InputNumber, Typography } from '@/shared';
+import { DrawerFormExtra, Input, Typography } from '@/shared';
 
 const DrawerNewUserForm = ({
   report,
@@ -32,8 +32,8 @@ const DrawerNewUserForm = ({
 
   const onSubmit = (data: IDrawerReportForm) => {
     console.log(data);
-    //reset();
-    //onClose();
+    reset();
+    onClose();
   };
 
   const onDelete = () => {
@@ -117,16 +117,15 @@ const DrawerNewUserForm = ({
             control={control}
             name='count'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <InputNumber
-                value={value}
+              <Input
+                value={Number(value)}
                 label={'Количество'}
                 name={'count'}
                 placeholder={'Введите количество'}
                 error={error?.message}
                 onChange={onChange}
                 type='number'
-                min={1}
-                style={{ width: '100%' }}
+                min={0}
               />
             )}
           />

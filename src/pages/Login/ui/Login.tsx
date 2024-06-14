@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./style.module.scss";
+import styles from './style.module.scss';
 
-import { LoginForm } from "@/features";
+import { LoginForm } from '@/features';
 
 const Login = (): React.ReactElement => {
   return (
