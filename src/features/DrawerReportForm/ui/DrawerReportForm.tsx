@@ -10,7 +10,7 @@ import { IDrawerReportForm } from './interfaces/IDrawerReportForm';
 
 import styles from './DrawerReportForm.module.scss';
 
-import { DrawerFormExtra, Input, Typography } from '@/shared';
+import { DrawerFormExtra, Input, InputNumber, Typography } from '@/shared';
 
 const DrawerNewUserForm = ({
   report,
@@ -26,7 +26,7 @@ const DrawerNewUserForm = ({
       object: report?.object.name,
       assortment: report?.assortment.name,
       department: report?.department,
-      count: report?.count ? parseInt(report?.count) : 0,
+      count: Number(report ? report?.count : 1),
     });
   }, [report, reset]);
 
@@ -76,7 +76,7 @@ const DrawerNewUserForm = ({
             name='department'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <Input
-                value={value?.trim()}
+                value={value}
                 label={'Отдел'}
                 name={'department'}
                 placeholder={'Введите отдел'}
@@ -117,7 +117,7 @@ const DrawerNewUserForm = ({
             control={control}
             name='count'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <Input
+              <InputNumber
                 value={value}
                 label={'Количество'}
                 name={'count'}
@@ -125,7 +125,8 @@ const DrawerNewUserForm = ({
                 error={error?.message}
                 onChange={onChange}
                 type='number'
-                min={'0'}
+                min={1}
+                style={{ width: '100%' }}
               />
             )}
           />
