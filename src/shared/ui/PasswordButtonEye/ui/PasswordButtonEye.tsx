@@ -1,8 +1,8 @@
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
-import styles from "./PasswordButtonEye.module.scss";
+import styles from './PasswordButtonEye.module.scss';
 
-import type { PasswordButtonEyeProps } from "@/shared/ui/PasswordButtonEye/interfaces/PasswordButtonEyeProps.ts";
+import type { PasswordButtonEyeProps } from '@/shared/ui/PasswordButtonEye/interfaces/PasswordButtonEyeProps.ts';
 
 const PasswordButtonEye = ({
   isClose,
@@ -11,14 +11,10 @@ const PasswordButtonEye = ({
   return (
     <button
       className={styles.passwordShowButton}
-      type={"button"}
+      type={'button'}
       onClick={onClick}
     >
-      {isClose ? (
-        <EyeInvisibleOutlined />
-      ) : (
-        <EyeOutlined style={{ color: "#1677ff" }} />
-      )}
+      {isClose ? <EyeInvisibleOutlined /> : <EyeTwoTone />}
     </button>
   );
 };
