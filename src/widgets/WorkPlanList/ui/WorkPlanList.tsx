@@ -1,6 +1,4 @@
 import { ReactElement, useState } from 'react';
-import { FileAddOutlined } from '@ant-design/icons';
-import { FloatButton } from 'antd';
 
 import styles from './WorkPlan.module.scss';
 
