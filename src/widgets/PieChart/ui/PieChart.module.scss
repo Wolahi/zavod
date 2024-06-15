@@ -1,6 +1,9 @@
 .root {
+  border: 1px solid black;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  height: 500px;
-  width: 70%;
+  gap: 15px;
+  height: 350px;
+  width: 400px;
 }
