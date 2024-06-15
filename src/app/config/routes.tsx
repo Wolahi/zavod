@@ -1,6 +1,7 @@
 import {
   AreaChartOutlined,
   AuditOutlined,
+  FileTextOutlined,
   SolutionOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -14,6 +15,7 @@ import {
   Reports,
   Statistic,
   Users,
+  WorkPlan,
 } from '@/pages';
 
 export enum ERoute {
@@ -22,6 +24,7 @@ export enum ERoute {
   Statistics = '/statistics',
   Reports = '/reports',
   Departments = '/departments',
+  WorkPlan = '/work-plan',
   NotFound = '*',
 }
 
@@ -55,6 +58,12 @@ export const routes: IRouteItem[] = [
     element: <Reports />,
     title: 'Отчеты',
     icon: <AuditOutlined />,
+  },
+  {
+    path: ERoute.WorkPlan,
+    element: <WorkPlan />,
+    title: 'Рабочий план',
+    icon: <FileTextOutlined />,
   },
   {
     path: ERoute.NotFound,
