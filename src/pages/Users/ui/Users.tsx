@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./Users.module.scss";
+import styles from './Users.module.scss';
 
-import { UsersList } from "@/widgets";
+import { UsersList } from '@/widgets';
 
 const Users = (): React.ReactElement => {
   return (

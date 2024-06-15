@@ -1,14 +1,16 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useState } from 'react';
+import { UserAddOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
 
-import styles from "./UsersList.module.scss";
+import styles from './UsersList.module.scss';
 
-import { UserCard } from "@/entities";
-import { DrawerForm } from "@/features";
-import type { IUserPreview } from "@/shared/config/interfaces/IUser.ts";
-import { userPreviewMock } from "@/shared/config/userPreviewMock.ts";
+import { UserCard } from '@/entities';
+import { DrawerUserForm } from '@/features';
+import type { IUserPreview } from '@/shared/config/interfaces/IUser.ts';
+import { userPreviewMock } from '@/shared/config/userPreviewMock.ts';
 
 const UsersList = (): ReactElement => {
-  const [userData, setUserData] = useState<IUserPreview>();
+  const [userData, setUserData] = useState<IUserPreview | null>(null);
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -19,9 +21,12 @@ const UsersList = (): ReactElement => {
     setOpen(false);
   };
 
-  const handleDrawer = (user: IUserPreview) => {
-    setUserData(user);
-    console.log(user);
+  const handleDrawer = (user?: IUserPreview) => {
+    if (user) {
+      setUserData(user);
+    } else {
+      setUserData(null);
+    }
     showDrawer();
   };
 
@@ -34,7 +39,12 @@ const UsersList = (): ReactElement => {
           onClick={() => handleDrawer(user)}
         />
       ))}
-      <DrawerForm user={userData} open={open} onClose={onClose} />
+      <DrawerUserForm user={userData} open={open} onClose={onClose} />
+      <FloatButton
+        onClick={() => handleDrawer()}
+        icon={<UserAddOutlined className={styles.floatButtonIcon} />}
+        className={styles.floatButton}
+      />
     </div>
   );
 };
