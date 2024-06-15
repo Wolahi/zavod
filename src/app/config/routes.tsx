@@ -1,6 +1,7 @@
 import {
   AreaChartOutlined,
   AuditOutlined,
+  BookOutlined,
   FileTextOutlined,
   SolutionOutlined,
   UserOutlined,
@@ -10,6 +11,7 @@ import { IRouteItem } from './interfaces/IRouteItem.ts';
 
 import {
   Departments,
+  Guide,
   Login,
   NotFound,
   Reports,
@@ -25,6 +27,7 @@ export enum ERoute {
   Reports = '/reports',
   Departments = '/departments',
   WorkPlan = '/work-plan',
+  Guide = '/guide',
   NotFound = '*',
 }
 
@@ -64,6 +67,12 @@ export const routes: IRouteItem[] = [
     element: <WorkPlan />,
     title: 'Рабочий план',
     icon: <FileTextOutlined />,
+  },
+  {
+    path: ERoute.Guide,
+    element: <Guide />,
+    title: 'Справочник',
+    icon: <BookOutlined />,
   },
   {
     path: ERoute.NotFound,

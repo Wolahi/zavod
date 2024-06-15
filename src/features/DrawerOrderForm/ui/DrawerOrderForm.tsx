@@ -3,31 +3,27 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Drawer } from 'antd';
 
-import { drawerDepartmentFormSchema } from '../config/drawerDepartmentFormSchema';
+import { drawerOrderFormSchema } from '../config/drawerOrderFormSchema';
 
-import { IDrawerDepartment } from './interfaces/IDrawerDepartment';
-import { IDrawerDepartmentForm } from './interfaces/IDrawerDepartmentForm';
+import { IDrawerOrder } from './interfaces/IDrawerOrder';
+import { IDrawerOrderForm } from './interfaces/IDrawerOrderForm';
 
-import styles from './DrawerDepartment.module.scss';
+import styles from './DrawerOrderForm.module.scss';
 
 import { DrawerFormExtra, Input, Typography } from '@/shared';
 
-const DrawerDepartmentForm = ({
-  department,
-  open,
-  onClose,
-}: IDrawerDepartment) => {
-  const { control, handleSubmit, reset } = useForm<IDrawerDepartmentForm>({
-    resolver: yupResolver(drawerDepartmentFormSchema),
+const DrawerOrderForm = ({ order, open, onClose }: IDrawerOrder) => {
+  const { control, handleSubmit, reset } = useForm<IDrawerOrderForm>({
+    resolver: yupResolver(drawerOrderFormSchema),
   });
 
   useEffect(() => {
     reset({
-      name: department?.name,
+      name: order?.name,
     });
-  }, [department, reset]);
+  }, [order, reset]);
 
-  const onSubmit = (data: IDrawerDepartmentForm) => {
+  const onSubmit = (data: IDrawerOrderForm) => {
     console.log(data);
     onClose();
     reset();
@@ -46,7 +42,7 @@ const DrawerDepartmentForm = ({
         onClose={onClose}
         open={open}
         extra={
-          department ? (
+          order ? (
             <DrawerFormExtra
               handleSubmit={handleSubmit(onSubmit)}
               onDelete={onDelete}
@@ -66,32 +62,26 @@ const DrawerDepartmentForm = ({
       >
         <div className={styles.drawerBody}>
           <Typography type={'textM'}>
-            {department ? 'Редактирование отдела' : 'Добавление отдела'}
+            {order ? 'Редактирование заказа' : 'Добавление заказа'}
           </Typography>
           <Controller
             control={control}
             name='name'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <Input
-                value={value?.trim()}
-                label={'Название отдела'}
+                value={value}
+                label={'Название заказа'}
                 name={'name'}
-                placeholder={'Введите название отдел'}
+                placeholder={'Введите название заказа'}
                 error={error?.message}
                 onChange={onChange}
               />
             )}
           />
         </div>
-        <div style={{ marginTop: '10px' }}>
-          <Typography type={'textM'}>Список работников</Typography>
-          {department?.users.map((user) => (
-            <div key={user.id}>{user.login}</div>
-          ))}
-        </div>
       </Drawer>
     </form>
   );
 };
 
-export default DrawerDepartmentForm;
+export default DrawerOrderForm;

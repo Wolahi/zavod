@@ -20,4 +20,10 @@ export const userPreviewMock: IUserPreview[] = [
     role: ERole.HeadState,
     department: 'Прикольный такой',
   },
+  {
+    id: '4',
+    login: 'Anion',
+    role: ERole.HeadState,
+    department: 'Хайповый такой',
+  },
 ];

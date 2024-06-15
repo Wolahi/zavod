@@ -3,31 +3,32 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Drawer } from 'antd';
 
-import { drawerDepartmentFormSchema } from '../config/drawerDepartmentFormSchema';
+import { drawerAssortmentFormSchema } from '../config/drawerAssortmentFormSchema';
 
-import { IDrawerDepartment } from './interfaces/IDrawerDepartment';
-import { IDrawerDepartmentForm } from './interfaces/IDrawerDepartmentForm';
+import { IDrawerAssortment } from './interfaces/IDrawerAssortment';
+import { IDrawerAssortmentForm } from './interfaces/IDrawerAssortmentForm';
 
-import styles from './DrawerDepartment.module.scss';
+import styles from './DrawerAssortmentForm.module.scss';
 
 import { DrawerFormExtra, Input, Typography } from '@/shared';
 
-const DrawerDepartmentForm = ({
-  department,
+const DrawerAssortmentForm = ({
+  assortment,
   open,
   onClose,
-}: IDrawerDepartment) => {
-  const { control, handleSubmit, reset } = useForm<IDrawerDepartmentForm>({
-    resolver: yupResolver(drawerDepartmentFormSchema),
+}: IDrawerAssortment) => {
+  const { control, handleSubmit, reset } = useForm<IDrawerAssortmentForm>({
+    resolver: yupResolver(drawerAssortmentFormSchema),
   });
 
   useEffect(() => {
     reset({
-      name: department?.name,
+      name: assortment?.name,
+      weight: Number(assortment?.weight),
     });
-  }, [department, reset]);
+  }, [assortment, reset]);
 
-  const onSubmit = (data: IDrawerDepartmentForm) => {
+  const onSubmit = (data: IDrawerAssortmentForm) => {
     console.log(data);
     onClose();
     reset();
@@ -46,7 +47,7 @@ const DrawerDepartmentForm = ({
         onClose={onClose}
         open={open}
         extra={
-          department ? (
+          assortment ? (
             <DrawerFormExtra
               handleSubmit={handleSubmit(onSubmit)}
               onDelete={onDelete}
@@ -66,7 +67,7 @@ const DrawerDepartmentForm = ({
       >
         <div className={styles.drawerBody}>
           <Typography type={'textM'}>
-            {department ? 'Редактирование отдела' : 'Добавление отдела'}
+            {assortment ? 'Редактирование сортамента' : 'Добавление сортамента'}
           </Typography>
           <Controller
             control={control}
@@ -74,24 +75,35 @@ const DrawerDepartmentForm = ({
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <Input
                 value={value?.trim()}
-                label={'Название отдела'}
+                label={'Название сортамента'}
                 name={'name'}
-                placeholder={'Введите название отдел'}
+                placeholder={'Введите название сортамента'}
                 error={error?.message}
                 onChange={onChange}
               />
             )}
           />
-        </div>
-        <div style={{ marginTop: '10px' }}>
-          <Typography type={'textM'}>Список работников</Typography>
-          {department?.users.map((user) => (
-            <div key={user.id}>{user.login}</div>
-          ))}
+          <Controller
+            control={control}
+            name='weight'
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <Input
+                value={Number(value)}
+                label={'Вес (тн)'}
+                name={'weight'}
+                placeholder={'Введите вес (тн)'}
+                error={error?.message}
+                onChange={onChange}
+                type='number'
+                min={0}
+                step={0.001}
+              />
+            )}
+          />
         </div>
       </Drawer>
     </form>
   );
 };
 
-export default DrawerDepartmentForm;
+export default DrawerAssortmentForm;
