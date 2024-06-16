@@ -1,6 +1,6 @@
 import DrawerAssortmentForm from './DrawerAssortmentForm/ui/DrawerAssortmentForm.tsx';
 import DrawerDepartmentForm from './DrawerDepartmentForm/ui/DrawerDepartmentForm.tsx';
-import DrawerOrderForm from './DrawerOrderForm/ui/DrawerOrderForm.tsx';
+import DrawerObjectForm from './DrawerOrderForm/ui/DrawerObjectForm.tsx';
 import DrawerReportForm from './DrawerReportForm/ui/DrawerReportForm';
 import DrawerUserForm from './DrawerUserForm/ui/DrawerUserForm';
 import DrawerWorkPlan from './DrawerWorkPlanForm/ui/DrawerWorkPlanForm.tsx';
@@ -13,5 +13,5 @@ export {
   DrawerReportForm,
   DrawerWorkPlan,
   DrawerAssortmentForm,
-  DrawerOrderForm,
+  DrawerObjectForm as DrawerOrderForm,
 };

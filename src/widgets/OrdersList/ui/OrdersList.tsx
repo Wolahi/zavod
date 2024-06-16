@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { FileAddOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
+import useGetObjects from '../model/useGetObjects';
+
 import styles from './OrdersList.module.scss';
 
-import { OrderCard } from '@/entities';
+import { ObjectCard, OrderCard } from '@/entities';
 import { DrawerOrderForm } from '@/features';
-import { IOrder } from '@/shared/config/interfaces/IOrder';
+import { IObjectOutput } from '@/shared/config/interfaces/IObjectOutput';
 import { orderPreviewMock } from '@/shared/config/orderPreviewMock';
 
 const OrdersList = (): React.ReactElement => {
+  const [objectData, setObjectData] = useState<IObjectOutput | null>(null);
   const [open, setOpen] = useState(false);
-  const [orderData, setOrderData] = useState<IOrder | null>(null);
+  const { objects, setObjects } = useGetObjects();
 
   const showDrawer = () => {
     setOpen(true);
@@ -21,25 +24,31 @@ const OrdersList = (): React.ReactElement => {
     setOpen(false);
   };
 
-  const handleDrawer = (order?: IOrder) => {
-    if (order) {
-      setOrderData(order);
-      console.log(order);
+  const handleDrawer = (object?: IObjectOutput) => {
+    if (object) {
+      setObjectData(object);
+      console.log(object);
     } else {
-      setOrderData(null);
+      setObjectData(null);
     }
     showDrawer();
   };
 
   return (
     <div className={styles.root}>
-      {orderPreviewMock.map((order) => (
-        <OrderCard
-          key={order.id}
-          order={order}
-          onClick={() => handleDrawer(order)}
+      {objects.map((object) => (
+        <ObjectCard
+          key={object.id}
+          object={object}
+          onClick={() => handleDrawer(object)}
         />
       ))}
+      <DrawerOrderForm
+        object={objectData}
+        open={open}
+        onClose={onClose}
+        setObjects={setObjects}
+      />
       <FloatButton
         shape='square'
         tooltip={<div>Заказ</div>}
@@ -47,7 +56,6 @@ const OrdersList = (): React.ReactElement => {
         onClick={() => handleDrawer()}
         style={{ bottom: '50px', boxShadow: 'none' }}
       />
-      <DrawerOrderForm open={open} onClose={onClose} order={orderData} />
     </div>
   );
 };

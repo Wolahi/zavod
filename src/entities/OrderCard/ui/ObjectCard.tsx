@@ -1,12 +1,15 @@
 import { Card } from 'antd';
 
-import { IOrderCardProps } from './interfaces/IOrderCardProps';
+import { IObjectCardProps } from './interfaces/IObjectCardProps';
 
-import styles from './OrderCard.module.scss';
+import styles from './ObjectCard.module.scss';
 
 import { Typography } from '@/shared';
 
-const OrderCard = ({ order, onClick }: IOrderCardProps): React.ReactElement => {
+const ObjectCard = ({
+  object,
+  onClick,
+}: IObjectCardProps): React.ReactElement => {
   return (
     <Card
       title={
@@ -17,17 +20,17 @@ const OrderCard = ({ order, onClick }: IOrderCardProps): React.ReactElement => {
             flexDirection: 'column',
           }}
         >
-          Заказ #{order.id}
+          Объект #{object.id}
         </Typography>
       }
       hoverable
       onClick={onClick}
     >
       <div className={styles.card__body}>
-        <Typography type={'description'}>{order.name}</Typography>
+        <Typography type={'description'}>{object.name}</Typography>
       </div>
     </Card>
   );
 };
 
-export default OrderCard;
+export default ObjectCard;
