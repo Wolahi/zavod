@@ -11,6 +11,7 @@ import { IDrawerReportForm } from './interfaces/IDrawerReportForm';
 import styles from './DrawerReportForm.module.scss';
 
 import { DrawerFormExtra, Input, Select, Typography } from '@/shared';
+import { assortmentPreviewMock } from '@/shared/config/assortmentPreviewMock';
 import { departmentPreviewMock } from '@/shared/config/departmentPreviewMock';
 
 const DrawerNewUserForm = ({
@@ -113,13 +114,22 @@ const DrawerNewUserForm = ({
             control={control}
             name='assortment'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <Input
-                label={'Сортамент'}
-                name='assortment'
+              <Select
                 value={value}
+                label={'Сортамент'}
+                placeholder={'Выберите сортамент'}
+                options={assortmentPreviewMock.map(
+                  (assortment) =>
+                    [
+                      {
+                        label: assortment.name,
+                        value: assortment.name,
+                      },
+                    ][0]
+                )}
                 onChange={onChange}
-                placeholder={'Введите сортамент'}
                 error={error?.message}
+                allowClear
               />
             )}
           />
