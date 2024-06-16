@@ -1,6 +1,7 @@
-import { IAssortment } from './IAssortment';
+import { IAssortmentOutput } from './IAssortmentOutput';
 
 export interface IWorkPlan {
-  assortment: IAssortment;
+  objId: IAssortmentOutput;
   count: number;
+  date: string;
 }

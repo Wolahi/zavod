@@ -1,4 +1,5 @@
 import { Card } from 'antd';
+import dayjs from 'dayjs';
 
 import { IWorkPlanCardProps } from './interfaces/IWorkPlanCardProps';
 
@@ -13,7 +14,18 @@ const WorkPlanCard = ({
   return (
     <Card
       title={
-        <Typography type={'textM'}>{workPlan?.assortment.name}</Typography>
+        <Typography
+          type={'textM'}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {workPlan?.objId.name}
+          <Typography type={'small'}>
+            {dayjs(workPlan?.date).locale('ru').format('YYYY-MM-DD')}
+          </Typography>
+        </Typography>
       }
       hoverable
       onClick={onClick}

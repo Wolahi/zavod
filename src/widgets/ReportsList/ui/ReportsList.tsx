@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { FileAddOutlined } from "@ant-design/icons";
-import { FloatButton } from "antd";
+import { useState } from 'react';
+import { FileAddOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
 
-import styles from "./reportsList.module.scss";
+import styles from './reportsList.module.scss';
 
-import { ReportCard } from "@/entities";
-import { DrawerReportForm } from "@/features";
-import { IReport } from "@/shared/config/interfaces/IReport";
-import useGetReportsList from "@/widgets/ReportsList/model/useGetReportsList.ts";
+import { ReportCard } from '@/entities';
+import { DrawerReportForm } from '@/features';
+import { IReport } from '@/shared/config/interfaces/IReport';
+import useGetReportsList from '@/widgets/ReportsList/model/useGetReportsList.ts';
 
 const ReportsList = (): React.ReactElement => {
   const [open, setOpen] = useState(false);
