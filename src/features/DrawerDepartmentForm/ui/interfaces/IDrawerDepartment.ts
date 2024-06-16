@@ -1,7 +1,10 @@
-import { IDepartment } from '@/shared/config/interfaces/IDepartment';
+import { Dispatch, SetStateAction } from 'react';
+
+import { IDepartamentOutput } from '@/shared/config/interfaces/IDepartamentOutput';
 
 export interface IDrawerDepartment {
-  department: IDepartment | null;
+  department: IDepartamentOutput | null;
   open: boolean;
+  setDepartment: Dispatch<SetStateAction<IDepartamentOutput[]>>;
   onClose: () => void;
 }

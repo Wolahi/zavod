@@ -1,7 +1,7 @@
 import AssortmentsList from '@/widgets/AssortmentsList/ui/AssortmentsList';
 import ColumnChart from '@/widgets/ColumnChart/ui/ColumnChart';
 import DepartmentsList from '@/widgets/DepartmentsList/ui/DepartmentsList';
-import OrdersList from '@/widgets/OrdersList/ui/OrdersList';
+import ObjectsList from '@/widgets/ObjectsList/ui/ObjectsList';
 import PieChart from '@/widgets/PieChart/ui/PieChart';
 import ReportsList from '@/widgets/ReportsList/ui/ReportsList';
 import ReportTable from '@/widgets/ReportTable/ui/ReportTable.tsx';
@@ -17,5 +17,5 @@ export {
   PieChart,
   ColumnChart,
   AssortmentsList,
-  OrdersList,
+  ObjectsList,
 };

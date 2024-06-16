@@ -1,4 +1,4 @@
 export interface IDrawerAssortmentForm {
   name: string;
-  weight: number;
+  count: number;
 }

@@ -2,7 +2,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 import styles from './PasswordButtonEye.module.scss';
 
-import type { PasswordButtonEyeProps } from '@/shared/ui/PasswordButtonEye/interfaces/PasswordButtonEyeProps.ts';
+import type { PasswordButtonEyeProps } from '@/shared/ui/PasswordButtonEye/ui/interfaces/PasswordButtonEyeProps';
 
 const PasswordButtonEye = ({
   isClose,

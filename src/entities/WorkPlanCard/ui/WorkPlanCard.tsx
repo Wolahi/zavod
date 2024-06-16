@@ -1,6 +1,6 @@
 import { Card } from 'antd';
 
-import { IWorkPlanCardProps } from '../interfaces/IWorkPlanCardProps';
+import { IWorkPlanCardProps } from './interfaces/IWorkPlanCardProps';
 
 import styles from './WorkPlanCard.module.scss';
 

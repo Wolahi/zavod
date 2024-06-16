@@ -1,4 +1,4 @@
-import OrderCard from './OrderCard/ui/OrderCard';
+import ObjectCard from './OrderCard/ui/ObjectCard';
 
 import AssortmentCard from '@/entities/AssortmentCard/ui/AssortmentCard';
 import DepartmentCard from '@/entities/DepartmentCard/ui/DepartmentCard.tsx';
@@ -12,5 +12,5 @@ export {
   ReportCard,
   WorkPlanCard,
   AssortmentCard,
-  OrderCard,
+  ObjectCard,
 };

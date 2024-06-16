@@ -27,9 +27,7 @@ const AssortmentCard = ({
       onClick={onClick}
     >
       <div className={styles.card__body}>
-        <Typography type={'description'}>
-          1 шт. – {assortment.weight}
-        </Typography>
+        <Typography type={'description'}>1 шт. – {assortment.count}</Typography>
       </div>
     </Card>
   );

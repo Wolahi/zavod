@@ -3,7 +3,7 @@ import { InputNumber } from 'antd';
 import styles from './CustomInputNumber.module.scss';
 
 import { Typography } from '@/shared';
-import type { ICustomInputNumberProps } from '@/shared/ui/CustomInputNumber/interfaces/ICustomInputNumberProps';
+import type { ICustomInputNumberProps } from '@/shared/ui/CustomInputNumber/ui/interfaces/ICustomInputNumberProps';
 
 const CustomInput = ({
   label,

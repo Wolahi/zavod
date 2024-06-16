@@ -1,3 +1,5 @@
+@import '@/app/styles/breakpoints';
+
 .root {
   display: flex;
   flex-direction: column;
@@ -16,5 +18,38 @@
     td {
       padding: 8px 16px !important;
     }
+
+    @media screen and (max-width: map-get($breakpoints, sm)) {
+      font-size: 12px;
+      > th,
+      td {
+        padding: 4px 12px !important;
+      }
+    }
+
+    @media screen and (max-width: 610px) {
+      font-size: 12px;
+      > th,
+      td {
+        padding: 0 !important;
+      }
+    }
+
+    @media screen and (max-width: 578px) {
+      font-size: 10px;
+      > th,
+      td {
+        padding: 2px !important;
+      }
+    }
+  }
+}
+
+.pickers {
+  display: flex;
+  gap: 10px;
+
+  @media screen and (max-width: 472px) {
+    flex-direction: column;
   }
 }

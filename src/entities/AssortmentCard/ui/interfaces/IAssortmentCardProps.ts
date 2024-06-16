@@ -1,6 +1,6 @@
-import { IAssortment } from '@/shared/config/interfaces/IAssortment';
+import { IAssortmentOutput } from '@/shared/config/interfaces/IAssortmentOutput';
 
 export interface IAssortmentCardProps {
-  assortment: IAssortment;
+  assortment: IAssortmentOutput;
   onClick?: (e: any) => void;
 }

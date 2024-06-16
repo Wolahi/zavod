@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Drawer } from "antd";
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Drawer } from 'antd';
 
-import styles from "./DrawerUserForm.module.scss";
+import styles from './DrawerUserForm.module.scss';
 
-import { drawerUserFormSchema } from "@/features/DrawerUserForm/config/drawerUserFormSchema";
-import useUserForm from "@/features/DrawerUserForm/module/useUserForm.ts";
-import type { IDrawerUser } from "@/features/DrawerUserForm/ui/interfaces/IDrawerUser";
-import type { IDrawerUserForm } from "@/features/DrawerUserForm/ui/interfaces/IDrawerUserForm";
-import { DrawerFormExtra, PasswordButtonEye } from "@/shared";
-import { Input, Select, Typography } from "@/shared";
-import { rolesOptions } from "@/shared/config/rolesOption.ts";
-import useGetDepartment from "@/shared/module/useGetDepartment.ts";
+import { drawerUserFormSchema } from '@/features/DrawerUserForm/config/drawerUserFormSchema';
+import useUserForm from '@/features/DrawerUserForm/module/useUserForm.ts';
+import type { IDrawerUser } from '@/features/DrawerUserForm/ui/interfaces/IDrawerUser';
+import type { IDrawerUserForm } from '@/features/DrawerUserForm/ui/interfaces/IDrawerUserForm';
+import { DrawerFormExtra, PasswordButtonEye } from '@/shared';
+import { Input, Select, Typography } from '@/shared';
+import { rolesOptions } from '@/shared/config/rolesOption.ts';
+import useGetDepartment from '@/shared/module/useGetDepartment.ts';
 
 const DrawerUserForm = ({
   user,
@@ -70,8 +70,8 @@ const DrawerUserForm = ({
 
   return (
     <Drawer
-      styles={{ body: { padding: "15px" } }}
-      placement={"right"}
+      styles={{ body: { padding: '15px' } }}
+      placement={'right'}
       width={520}
       onClose={onClose}
       open={open}
@@ -84,8 +84,8 @@ const DrawerUserForm = ({
         ) : (
           <div className={styles.buttonsWrapper}>
             <Button
-              type="primary"
-              htmlType={"submit"}
+              type='primary'
+              htmlType={'submit'}
               onClick={handleSubmit(onSubmit)}
             >
               Добавить
@@ -95,19 +95,19 @@ const DrawerUserForm = ({
       }
     >
       <div className={styles.drawerBody}>
-        <Typography type={"textM"}>
-          {user ? "Редактирование пользователя" : "Добавление пользователя"}
+        <Typography type={'textM'}>
+          {user ? 'Редактирование пользователя' : 'Добавление пользователя'}
         </Typography>
         <Controller
           control={control}
-          name="username"
+          name='username'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Input
               value={value?.trim()}
-              label={"Логин"}
+              label={'Логин'}
               disabled={!!user}
-              name={"username"}
-              placeholder={"Введите логин"}
+              name={'username'}
+              placeholder={'Введите логин'}
               error={error?.message}
               onChange={onChange}
             />
@@ -115,13 +115,13 @@ const DrawerUserForm = ({
         />
         <Controller
           control={control}
-          name="name"
+          name='name'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Input
               value={value?.trim()}
-              label={"Имя"}
-              name={"name"}
-              placeholder={"Введите имя"}
+              label={'Имя'}
+              name={'name'}
+              placeholder={'Введите имя'}
               error={error?.message}
               onChange={onChange}
             />
@@ -130,17 +130,17 @@ const DrawerUserForm = ({
         {!user && (
           <Controller
             control={control}
-            name="password"
+            name='password'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <Input
-                label={"Пароль"}
+                label={'Пароль'}
                 value={value?.trim()}
                 onChange={onChange}
-                name={"password"}
+                name={'password'}
                 maxLength={32}
                 minLength={8}
-                placeholder={"Введите пароль"}
-                type={isClose ? "password" : "text"}
+                placeholder={'Введите пароль'}
+                type={isClose ? 'password' : 'text'}
                 error={error?.message}
                 suffix={
                   <PasswordButtonEye
@@ -154,13 +154,13 @@ const DrawerUserForm = ({
         )}
         <Controller
           control={control}
-          name="role"
+          name='role'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Select
               disabled={!!user}
               value={value}
-              label={"Роль"}
-              placeholder={"Выберите роль"}
+              label={'Роль'}
+              placeholder={'Выберите роль'}
               options={rolesOptions}
               onChange={onChange}
               error={error?.message}
@@ -170,16 +170,16 @@ const DrawerUserForm = ({
         />
         <Controller
           control={control}
-          name="department"
+          name='department'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Select
               value={value}
-              label={"Отдел"}
+              label={'Отдел'}
               options={department.map((department) => ({
                 value: department.id,
                 label: department.name,
               }))}
-              placeholder={"Введите отдел"}
+              placeholder={'Выберите отдел'}
               error={error?.message}
               onChange={onChange}
             />

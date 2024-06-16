@@ -1,4 +1,4 @@
-import { ERole } from "@/shared/config/interfaces/ERoles.ts";
+import { ERole } from '@/shared/config/interfaces/ERoles.ts';
 
 export interface IUserPreview {
   id: string;

@@ -5,31 +5,31 @@ import {
   FileTextOutlined,
   SolutionOutlined,
   UserOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 
-import { IRouteItem } from "./interfaces/IRouteItem.ts";
+import { IRouteItem } from './interfaces/IRouteItem.ts';
 
 import {
   Departments,
-  Guide,
+  Dictionary,
   Login,
   NotFound,
   Reports,
   Statistic,
   Users,
   WorkPlan,
-} from "@/pages";
-import { ERole } from "@/shared/config/interfaces/ERoles.ts";
+} from '@/pages';
+import { ERole } from '@/shared/config/interfaces/ERoles.ts';
 
 export enum ERoute {
-  Login = "/",
-  Users = "/users",
-  Statistics = "/statistics",
-  Reports = "/reports",
-  Departments = "/departments",
-  WorkPlan = "/work-plan",
-  Guide = "/guide",
-  NotFound = "*",
+  Login = '/',
+  Users = '/users',
+  Statistics = '/statistics',
+  Reports = '/reports',
+  Departments = '/departments',
+  WorkPlan = '/work-plan',
+  Dictionary = '/dictionary',
+  NotFound = '*',
 }
 
 export const sideBarIgnoreRouts = [ERoute.Login, ERoute.NotFound];
@@ -45,7 +45,7 @@ export const routes: IRouteItem[] = [
     path: ERoute.Users,
     isPrivate: true,
     element: <Users />,
-    title: "Работники",
+    title: 'Работники',
     icon: <UserOutlined />,
     roles: [ERole.DMK, ERole.ADMIN],
   },
@@ -53,7 +53,7 @@ export const routes: IRouteItem[] = [
     path: ERoute.Departments,
     isPrivate: true,
     element: <Departments />,
-    title: "Отделы",
+    title: 'Отделы',
     icon: <SolutionOutlined />,
     roles: [ERole.DMK, ERole.ADMIN],
   },
@@ -61,7 +61,7 @@ export const routes: IRouteItem[] = [
     path: ERoute.Statistics,
     isPrivate: true,
     element: <Statistic />,
-    title: "Статистика",
+    title: 'Статистика',
     icon: <AreaChartOutlined />,
     roles: [ERole.DMK, ERole.ADMIN],
   },
@@ -69,7 +69,7 @@ export const routes: IRouteItem[] = [
     path: ERoute.Reports,
     element: <Reports />,
     isPrivate: true,
-    title: "Отчеты",
+    title: 'Отчеты',
     icon: <AuditOutlined />,
     roles: [ERole.DMK, ERole.ADMIN, ERole.HeadState],
   },
@@ -77,15 +77,15 @@ export const routes: IRouteItem[] = [
     path: ERoute.WorkPlan,
     isPrivate: true,
     element: <WorkPlan />,
-    title: "Рабочий план",
+    title: 'Рабочий план',
     icon: <FileTextOutlined />,
     roles: [ERole.DMK, ERole.ADMIN],
   },
   {
-    path: ERoute.Guide,
-    element: <Guide />,
+    path: ERoute.Dictionary,
+    element: <Dictionary />,
     isPrivate: true,
-    title: "Справочник",
+    title: 'Справочники',
     icon: <BookOutlined />,
     roles: [ERole.DMK, ERole.ADMIN, ERole.Foreman],
   },

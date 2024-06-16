@@ -1,18 +1,21 @@
-import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Drawer } from "antd";
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Drawer } from 'antd';
 
-import { drawerReportFormSchema } from "../config/drawerReportFormSchema";
+import { drawerReportFormSchema } from '../config/drawerReportFormSchema';
 
-import { IDrawerReport } from "./interfaces/IDrawerReport";
-import { IDrawerReportForm } from "./interfaces/IDrawerReportForm";
+import { IDrawerReport } from './interfaces/IDrawerReport';
+import { IDrawerReportForm } from './interfaces/IDrawerReportForm';
 
-import styles from "./DrawerReportForm.module.scss";
+import styles from './DrawerReportForm.module.scss';
 
-import { DrawerFormExtra, Input, Typography } from "@/shared";
+import { DrawerFormExtra, Input, Select, Typography } from '@/shared';
+import { assortmentPreviewMock } from '@/shared/config/assortmentPreviewMock';
+import { departmentPreviewMock } from '@/shared/config/departmentPreviewMock';
+import { reportOptions } from '@/shared/config/reportOptions';
 
-const DrawerNewUserForm = ({
+const DrawerReportForm = ({
   report,
   open,
   onClose,
@@ -26,6 +29,7 @@ const DrawerNewUserForm = ({
       object: report?.object.name,
       assortment: report?.assortment.name,
       department: report?.department,
+      type: report?.type,
       count: Number(report ? report?.count : 1),
     });
   }, [report, reset]);
@@ -37,13 +41,13 @@ const DrawerNewUserForm = ({
   };
 
   const onDelete = () => {
-    console.log("deleted");
+    console.log('deleted');
   };
 
   return (
     <Drawer
-      styles={{ body: { padding: "15px" } }}
-      placement={"right"}
+      styles={{ body: { padding: '15px' } }}
+      placement={'right'}
       width={520}
       onClose={onClose}
       open={open}
@@ -56,8 +60,8 @@ const DrawerNewUserForm = ({
         ) : (
           <div className={styles.buttonsWrapper}>
             <Button
-              type="primary"
-              htmlType={"submit"}
+              type='primary'
+              htmlType={'submit'}
               onClick={handleSubmit(onSubmit)}
             >
               Загрузить
@@ -67,63 +71,86 @@ const DrawerNewUserForm = ({
       }
     >
       <div className={styles.drawerBody}>
-        <Typography type={"textM"}>
-          {report ? "Редактирование отчета" : "Добавление отчета"}
+        <Typography type={'textM'}>
+          {report ? 'Редактирование отчета' : 'Добавление отчета'}
         </Typography>
         <Controller
           control={control}
-          name="department"
+          name='department'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <Input
+            <Select
               value={value}
-              label={"Отдел"}
-              name={"department"}
-              placeholder={"Введите отдел"}
-              error={error?.message}
+              label={'Отдел'}
+              placeholder={'Выберите отдел'}
+              options={departmentPreviewMock.map((department) => ({
+                label: department.name,
+                value: department.name,
+              }))}
               onChange={onChange}
+              error={error?.message}
+              allowClear
             />
           )}
         />
         <Controller
           control={control}
-          name="object"
+          name='object'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Input
-              label={"Объект"}
+              label={'Объект'}
               value={value}
               onChange={onChange}
-              name={"object"}
-              placeholder={"Введите объект"}
-              error={error?.message}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="assortment"
-          render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <Input
-              label={"Сортамент"}
-              name="assortment"
-              value={value}
-              onChange={onChange}
-              placeholder={"Введите сортамент"}
+              name={'object'}
+              placeholder={'Введите объект'}
               error={error?.message}
             />
           )}
         />
         <Controller
           control={control}
-          name="count"
+          name='assortment'
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
+            <Select
+              value={value}
+              label={'Сортамент'}
+              placeholder={'Выберите сортамент'}
+              options={assortmentPreviewMock.map((assortment) => ({
+                label: assortment.name,
+                value: assortment.name,
+              }))}
+              onChange={onChange}
+              error={error?.message}
+              allowClear
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name='type'
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
+            <Select
+              value={value}
+              label={'Тип отчета'}
+              placeholder={'Выберите тип отчета'}
+              options={reportOptions}
+              onChange={onChange}
+              error={error?.message}
+              allowClear
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name='count'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Input
               value={Number(value)}
-              label={"Количество"}
-              name={"count"}
-              placeholder={"Введите количество"}
+              label={'Количество'}
+              name={'count'}
+              placeholder={'Введите количество'}
               error={error?.message}
               onChange={onChange}
-              type="number"
+              type='number'
               min={0}
             />
           )}
@@ -133,4 +160,4 @@ const DrawerNewUserForm = ({
   );
 };
 
-export default DrawerNewUserForm;
+export default DrawerReportForm;
