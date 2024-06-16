@@ -1,17 +1,18 @@
-import { ReactElement, useState } from 'react';
-import { UserAddOutlined } from '@ant-design/icons';
-import { FloatButton } from 'antd';
+import { ReactElement, useState } from "react";
+import { UserAddOutlined } from "@ant-design/icons";
+import { FloatButton } from "antd";
 
-import styles from './UsersList.module.scss';
+import styles from "./UsersList.module.scss";
 
-import { UserCard } from '@/entities';
-import { DrawerUserForm } from '@/features';
-import type { IUserPreview } from '@/shared/config/interfaces/IUser.ts';
-import { userPreviewMock } from '@/shared/config/userPreviewMock.ts';
+import { UserCard } from "@/entities";
+import { DrawerUserForm } from "@/features";
+import { IUserOutput } from "@/shared/config/interfaces/IUserOutput.ts";
+import useGetListUsers from "@/widgets/UsersList/model/useGetListUsers.ts";
 
 const UsersList = (): ReactElement => {
-  const [userData, setUserData] = useState<IUserPreview | null>(null);
+  const [userData, setUserData] = useState<IUserOutput | null>(null);
   const [open, setOpen] = useState(false);
+  const { users, setUsers } = useGetListUsers();
 
   const showDrawer = () => {
     setOpen(true);
@@ -21,7 +22,7 @@ const UsersList = (): ReactElement => {
     setOpen(false);
   };
 
-  const handleDrawer = (user?: IUserPreview) => {
+  const handleDrawer = (user?: IUserOutput) => {
     if (user) {
       setUserData(user);
     } else {
@@ -32,14 +33,19 @@ const UsersList = (): ReactElement => {
 
   return (
     <div className={styles.root}>
-      {userPreviewMock.map((user) => (
+      {users.map((user) => (
         <UserCard
           key={user.id}
           user={user}
           onClick={() => handleDrawer(user)}
         />
       ))}
-      <DrawerUserForm user={userData} open={open} onClose={onClose} />
+      <DrawerUserForm
+        user={userData}
+        open={open}
+        onClose={onClose}
+        setUsers={setUsers}
+      />
       <FloatButton
         onClick={() => handleDrawer()}
         icon={<UserAddOutlined className={styles.floatButtonIcon} />}

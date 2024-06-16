@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const loginSchema = yup.object().shape({
-  login: yup.string().required("Логин обязателен"),
+  username: yup.string().required("Логин обязателен"),
   password: yup
     .string()
     .min(8, "Минимальное количество символов 8")

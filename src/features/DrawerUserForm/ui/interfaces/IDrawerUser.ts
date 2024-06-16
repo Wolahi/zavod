@@ -1,7 +1,10 @@
-import type { IUserPreview } from '@/shared/config/interfaces/IUser.ts';
+import { Dispatch, SetStateAction } from "react";
+
+import { IUserOutput } from "@/shared/config/interfaces/IUserOutput.ts";
 
 export interface IDrawerUser {
-  user: IUserPreview | null;
+  user: IUserOutput | null;
   open: boolean;
+  setUsers: Dispatch<SetStateAction<IUserOutput[]>>;
   onClose: () => void;
 }
