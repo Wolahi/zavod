@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Drawer } from 'antd';
+import { Select as AntdSelect } from 'antd';
 
 import styles from './DrawerUserForm.module.scss';
 
@@ -10,6 +11,7 @@ import type { IDrawerUser } from '@/features/DrawerUserForm/ui/interfaces/IDrawe
 import type { IDrawerUserForm } from '@/features/DrawerUserForm/ui/interfaces/IDrawerUserForm';
 import { DrawerFormExtra, PasswordButtonEye } from '@/shared';
 import { Input, Select, Typography } from '@/shared';
+import { departmentPreviewMock } from '@/shared/config/departmentPreviewMock';
 import { rolesOptions } from '@/shared/config/rolesOption.ts';
 
 const DrawerUserForm = ({
@@ -132,13 +134,22 @@ const DrawerUserForm = ({
             control={control}
             name='department'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <Input
+              <Select
                 value={value}
                 label={'Отдел'}
-                name={'department'}
-                placeholder={'Введите отдел'}
-                error={error?.message}
+                placeholder={'Выберите отдел'}
+                options={departmentPreviewMock.map(
+                  (department) =>
+                    [
+                      {
+                        label: department.name,
+                        value: department.name,
+                      },
+                    ][0]
+                )}
                 onChange={onChange}
+                error={error?.message}
+                allowClear
               />
             )}
           />

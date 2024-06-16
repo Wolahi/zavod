@@ -10,7 +10,8 @@ import { IDrawerReportForm } from './interfaces/IDrawerReportForm';
 
 import styles from './DrawerReportForm.module.scss';
 
-import { DrawerFormExtra, Input, Typography } from '@/shared';
+import { DrawerFormExtra, Input, Select, Typography } from '@/shared';
+import { departmentPreviewMock } from '@/shared/config/departmentPreviewMock';
 
 const DrawerNewUserForm = ({
   report,
@@ -75,13 +76,22 @@ const DrawerNewUserForm = ({
             control={control}
             name='department'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <Input
+              <Select
                 value={value}
                 label={'Отдел'}
-                name={'department'}
-                placeholder={'Введите отдел'}
-                error={error?.message}
+                placeholder={'Выберите отдел'}
+                options={departmentPreviewMock.map(
+                  (department) =>
+                    [
+                      {
+                        label: department.name,
+                        value: department.name,
+                      },
+                    ][0]
+                )}
                 onChange={onChange}
+                error={error?.message}
+                allowClear
               />
             )}
           />

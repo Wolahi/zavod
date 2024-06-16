@@ -211,4 +211,24 @@ export const assortmentPreviewMock: IAssortment[] = [
     name: 'Д-19',
     weight: '0.001',
   },
+  {
+    id: '43',
+    name: 'К-9',
+    weight: '3.002',
+  },
+  {
+    id: '44',
+    name: 'К-14',
+    weight: '1.005',
+  },
+  {
+    id: '45',
+    name: 'C-31',
+    weight: '0.180',
+  },
+  {
+    id: '46',
+    name: 'П-5',
+    weight: '0.270',
+  },
 ];
