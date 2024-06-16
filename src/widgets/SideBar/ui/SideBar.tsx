@@ -1,5 +1,5 @@
 import { ReactElement, useMemo } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Menu } from "antd";
 
 import { ERoute, sideBarIgnoreRouts } from "@/app/config/routes.tsx";
@@ -10,6 +10,7 @@ const SideBar = (): ReactElement => {
   const navigate = useNavigate();
 
   const { routesPrivate } = useAuthContext();
+  const location = useLocation();
 
   const items: TMenuItem[] = useMemo(
     () =>
@@ -27,6 +28,7 @@ const SideBar = (): ReactElement => {
   return (
     <Menu
       mode={"inline"}
+      selectedKeys={[location.pathname]}
       theme={"light"}
       defaultSelectedKeys={[ERoute.Users]}
       items={items}
