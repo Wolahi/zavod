@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import create from '@ant-design/icons/lib/components/IconFont';
 import { DatePicker, Table } from 'antd';
-import dayjs from 'dayjs';
 
 import styles from './ReportTable.module.scss';
 
@@ -12,6 +10,33 @@ import { reportPreviewMock } from '@/shared/config/reportPreviewMock';
 
 const { Column, ColumnGroup } = Table;
 const { RangePicker } = DatePicker;
+
+const columns = [
+  {
+    title: (
+      <span>
+        №<br />
+        п/п
+      </span>
+    ),
+    dataIndex: 'id',
+    key: 'id',
+    align: 'center',
+    width: '60px',
+  },
+  {
+    title: 'Заказ',
+    dataIndex: 'orderName',
+    align: 'center',
+    render: () => '203 - МАХ ТЦ "Максимир"',
+  },
+  {
+    title: 'Наименование',
+    dataIndex: 'assortmentName',
+    align: 'center',
+    render: (report: IReport) => report.assortment.name,
+  },
+];
 
 const ReportTable = () => {
   const [selectValue, setSelectValue] = useState();
@@ -25,12 +50,7 @@ const ReportTable = () => {
 
   return (
     <div className={styles.root}>
-      <div
-        style={{
-          display: 'flex',
-          gap: '10px',
-        }}
-      >
+      <div className={styles.pickers}>
         <RangePicker
           format={'DD-MM-YYYY'}
           onChange={(value, dateString) => {
@@ -40,23 +60,28 @@ const ReportTable = () => {
         <Select
           value={selectValue}
           placeholder={'Выберите отдел'}
-          options={departmentPreviewMock.map(
-            (department) =>
-              [
-                {
-                  label: department.name,
-                  value: department.name,
-                },
-              ][0]
-          )}
+          options={departmentPreviewMock.map((department) => ({
+            label: department.name,
+            value: department.name,
+          }))}
           onChange={handleSelect}
           allowClear
         />
       </div>
       <div className={styles.tables}>
-        <Table dataSource={reportPreviewMock} pagination={false} rowKey={'id'}>
+        <Table
+          dataSource={reportPreviewMock}
+          pagination={false}
+          rowKey={'id'}
+          scroll={{ x: '100%' }}
+        >
           <Column
-            title='№ п/п'
+            title={
+              <span>
+                №<br />
+                п/п
+              </span>
+            }
             dataIndex='id'
             key='id'
             width='60px'
@@ -64,7 +89,7 @@ const ReportTable = () => {
           />
           <Column
             title='Заказ'
-            key='assortmentName'
+            key='orderName'
             align='center'
             render={() => '203 - МАХ ТЦ "Максимир"'}
           />
