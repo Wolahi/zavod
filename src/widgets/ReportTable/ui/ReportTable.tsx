@@ -1,42 +1,13 @@
-import { useState } from 'react';
-import { DatePicker, Table } from 'antd';
+import { useState } from "react";
+import { DatePicker, Table } from "antd";
 
-import styles from './ReportTable.module.scss';
+import styles from "./ReportTable.module.scss";
 
-import { Select } from '@/shared';
-import { departmentPreviewMock } from '@/shared/config/departmentPreviewMock';
-import { IReport } from '@/shared/config/interfaces/IReport';
-import { reportPreviewMock } from '@/shared/config/reportPreviewMock';
+import { Select } from "@/shared";
+import { reportPreviewMock } from "@/shared/config/reportPreviewMock";
 
 const { Column, ColumnGroup } = Table;
 const { RangePicker } = DatePicker;
-
-const columns = [
-  {
-    title: (
-      <span>
-        №<br />
-        п/п
-      </span>
-    ),
-    dataIndex: 'id',
-    key: 'id',
-    align: 'center',
-    width: '60px',
-  },
-  {
-    title: 'Заказ',
-    dataIndex: 'orderName',
-    align: 'center',
-    render: () => '203 - МАХ ТЦ "Максимир"',
-  },
-  {
-    title: 'Наименование',
-    dataIndex: 'assortmentName',
-    align: 'center',
-    render: (report: IReport) => report.assortment.name,
-  },
-];
 
 const ReportTable = () => {
   const [selectValue, setSelectValue] = useState();
@@ -52,18 +23,15 @@ const ReportTable = () => {
     <div className={styles.root}>
       <div className={styles.pickers}>
         <RangePicker
-          format={'DD-MM-YYYY'}
+          format={"DD-MM-YYYY"}
           onChange={(value, dateString) => {
+            console.log(value);
             handleDatePicker(dateString);
           }}
         />
         <Select
           value={selectValue}
-          placeholder={'Выберите отдел'}
-          options={departmentPreviewMock.map((department) => ({
-            label: department.name,
-            value: department.name,
-          }))}
+          placeholder={"Выберите отдел"}
           onChange={handleSelect}
           allowClear
         />
@@ -72,8 +40,8 @@ const ReportTable = () => {
         <Table
           dataSource={reportPreviewMock}
           pagination={false}
-          rowKey={'id'}
-          scroll={{ x: '100%' }}
+          rowKey={"id"}
+          scroll={{ x: "100%" }}
         >
           <Column
             title={
@@ -82,55 +50,55 @@ const ReportTable = () => {
                 п/п
               </span>
             }
-            dataIndex='id'
-            key='id'
-            width='60px'
-            align='center'
+            dataIndex="id"
+            key="id"
+            width="60px"
+            align="center"
           />
           <Column
-            title='Заказ'
-            key='orderName'
-            align='center'
+            title="Заказ"
+            key="orderName"
+            align="center"
             render={() => '203 - МАХ ТЦ "Максимир"'}
           />
           <Column
-            title='Наименование'
-            key='assortmentName'
-            align='center'
+            title="Наименование"
+            key="assortmentName"
+            align="center"
             render={(report) => report.assortment.name}
           />
           <Column
-            title='Объект'
-            key='objectName'
-            align='center'
+            title="Объект"
+            key="objectName"
+            align="center"
             render={(report) => report.object.name}
           />
 
-          <ColumnGroup title='1 ед.'>
+          <ColumnGroup title="1 ед.">
             <Column
-              title='шт.'
-              key='pieceName'
-              align='center'
+              title="шт."
+              key="pieceName"
+              align="center"
               render={() => 1}
             />
             <Column
-              title='тн.'
-              key='weightOfPieceName'
-              align='center'
+              title="тн."
+              key="weightOfPieceName"
+              align="center"
               render={(report) => report.assortment.weight}
             />
           </ColumnGroup>
-          <ColumnGroup title='Количество'>
+          <ColumnGroup title="Количество">
             <Column
-              title='шт.'
-              key='pieceName'
-              align='center'
+              title="шт."
+              key="pieceName"
+              align="center"
               render={(report) => report.count}
             />
             <Column
-              title='тн.'
-              key='totalWeight'
-              align='center'
+              title="тн."
+              key="totalWeight"
+              align="center"
               render={(report) =>
                 (report.count * report.assortment.weight).toFixed(3)
               }
