@@ -4,6 +4,8 @@ export const drawerReportFormSchema = yup.object().shape({
   department: yup.string().required('Отдел обязателен'),
   object: yup.string().required('Объект обязателен'),
   assortment: yup.string().required('Сортамент обязателен'),
+  type: yup.string().required('Тип отчета обязателен'),
+  isProduction: yup.boolean().required(),
   count: yup
     .number()
     .typeError('Минимальное количество 1')

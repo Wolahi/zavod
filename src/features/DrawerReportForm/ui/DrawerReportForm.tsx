@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Drawer } from 'antd';
+import type { CheckboxProps } from 'antd';
+import { Button, Checkbox, Drawer } from 'antd';
 
 import { drawerReportFormSchema } from '../config/drawerReportFormSchema';
 
@@ -13,8 +14,9 @@ import styles from './DrawerReportForm.module.scss';
 import { DrawerFormExtra, Input, Select, Typography } from '@/shared';
 import { assortmentPreviewMock } from '@/shared/config/assortmentPreviewMock';
 import { departmentPreviewMock } from '@/shared/config/departmentPreviewMock';
+import { reportOptions } from '@/shared/config/reportOptions';
 
-const DrawerNewUserForm = ({
+const DrawerReportForm = ({
   report,
   open,
   onClose,
@@ -28,6 +30,8 @@ const DrawerNewUserForm = ({
       object: report?.object.name,
       assortment: report?.assortment.name,
       department: report?.department,
+      type: report?.type,
+      isProduction: report?.isProduction,
       count: Number(report ? report?.count : 1),
     });
   }, [report, reset]);
@@ -135,6 +139,40 @@ const DrawerNewUserForm = ({
           />
           <Controller
             control={control}
+            name='type'
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <Select
+                value={value}
+                label={'Тип отчета'}
+                placeholder={'Выберите тип отчета'}
+                options={reportOptions}
+                onChange={onChange}
+                error={error?.message}
+                allowClear
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name='isProduction'
+            render={({ field: { value, onChange } }) => (
+              <div
+                style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}
+              >
+                <Checkbox
+                  name={'isProduction'}
+                  value={value}
+                  onChange={onChange}
+                >
+                  <Typography type={'subtitle'} style={{ color: '#b7b7b7' }}>
+                    Производственный отдел
+                  </Typography>
+                </Checkbox>
+              </div>
+            )}
+          />
+          <Controller
+            control={control}
             name='count'
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <Input
@@ -155,4 +193,4 @@ const DrawerNewUserForm = ({
   );
 };
 
-export default DrawerNewUserForm;
+export default DrawerReportForm;
