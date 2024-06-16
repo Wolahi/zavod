@@ -1,5 +1,5 @@
 export interface IAssortment {
-  id: string;
+  id: number;
   name: string;
-  weight: string;
+  count: number;
 }

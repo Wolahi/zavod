@@ -20,3 +20,53 @@
   display: flex;
   gap: 5px;
 }
+
+.imagePreview {
+  height: auto !important;
+  padding: 0;
+  position: relative;
+
+
+  img {
+    border-radius: 6px;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 32px;
+    width: 3px;
+    border-radius: 3px;
+    background-color: red;
+    transform: rotate(45deg);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 3px;
+    height: 32px;
+    border-radius: 3px;
+    background-color: red;
+    transform: rotate(-45deg);
+  }
+
+  &:hover {
+    img {
+      filter: grayscale(100%);
+    }
+  }
+}

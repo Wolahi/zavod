@@ -1,7 +1,7 @@
-import { IUserPreview } from '@/shared/config/interfaces/IUser';
+import { IUserPreview } from "@/shared/config/interfaces/IUser";
 
 export interface IDepartment {
-  id: string;
+  id: number;
   name: string;
   foundation: boolean;
   users: IUserPreview[];

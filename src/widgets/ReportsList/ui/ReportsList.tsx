@@ -1,17 +1,18 @@
-import { useState } from 'react';
-import { FileAddOutlined } from '@ant-design/icons';
-import { FloatButton } from 'antd';
+import { useState } from "react";
+import { FileAddOutlined } from "@ant-design/icons";
+import { FloatButton } from "antd";
 
-import styles from './reportsList.module.scss';
+import styles from "./reportsList.module.scss";
 
-import { ReportCard } from '@/entities';
-import { DrawerReportForm } from '@/features';
-import { IReport } from '@/shared/config/interfaces/IReport';
-import { reportPreviewMock } from '@/shared/config/reportPreviewMock';
+import { ReportCard } from "@/entities";
+import { DrawerReportForm } from "@/features";
+import { IReport } from "@/shared/config/interfaces/IReport";
+import useGetReportsList from "@/widgets/ReportsList/model/useGetReportsList.ts";
 
 const ReportsList = (): React.ReactElement => {
   const [open, setOpen] = useState(false);
   const [reportData, setReportData] = useState<IReport | null>(null);
+  const { reports, setReports } = useGetReportsList();
 
   const showDrawer = () => {
     setOpen(true);
@@ -33,7 +34,7 @@ const ReportsList = (): React.ReactElement => {
 
   return (
     <div className={styles.root}>
-      {reportPreviewMock.map((report) => (
+      {reports.map((report) => (
         <ReportCard
           key={report.id}
           report={report}
@@ -45,7 +46,12 @@ const ReportsList = (): React.ReactElement => {
         icon={<FileAddOutlined className={styles.floatButtonIcon} />}
         className={styles.floatButton}
       />
-      <DrawerReportForm open={open} onClose={onClose} report={reportData} />
+      <DrawerReportForm
+        setReport={setReports}
+        open={open}
+        onClose={onClose}
+        report={reportData}
+      />
     </div>
   );
 };
