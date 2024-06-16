@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 
-import { IAssortmentOutput } from '../config/interfaces/IAssortmentOutput';
-
 import { $api } from '@/shared/api/apiInstance.ts';
+import { IAssortmentOutput } from '@/shared/config/interfaces/IAssortmentOutput';
 
 const useGetAssortmentById = (assortmentId: number) => {
   const [assortment, setAssortment] = useState<IAssortmentOutput>();
