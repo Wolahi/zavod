@@ -161,7 +161,7 @@ const DrawerReportForm = ({
               >
                 <Checkbox
                   name={'isProduction'}
-                  value={value}
+                  checked={value}
                   onChange={onChange}
                 >
                   <Typography
