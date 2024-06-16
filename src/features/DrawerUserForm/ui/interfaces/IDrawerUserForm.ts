@@ -1,5 +1,6 @@
 export interface IDrawerUserForm {
-  login: string;
+  username: string;
+  name: string;
   role: string;
   department: string;
   password?: string;

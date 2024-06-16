@@ -1,3 +1,5 @@
+@import "@/app/styles/breakpoints";
+
 .root {
   position: relative;
   min-height: 100vh;
@@ -7,9 +9,33 @@
   margin: 0 16px;
 }
 
+.userBtn {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #1677ff;
+  gap: 5px;
+
+  span {
+    color: #fff;
+  }
+}
+
 .sideBar {
-  position: absolute !important;
+  position: fixed !important;
   z-index: 10;
-  padding: 20px 0;
+  padding-top: 20px;
+  height: 100vh;
+
+}
+
+.itemsWrapp {
+  display: flex !important;
   height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (max-width: map-get($breakpoints, md)) {
+    height: calc(100% - 75px);
+  }
 }

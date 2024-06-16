@@ -1,6 +1,6 @@
-import { IUserPreview } from "@/shared/config/interfaces/IUser.ts";
+import { IUserOutput } from "@/shared/config/interfaces/IUserOutput.ts";
 
 export interface IUserCardProps {
-  user: IUserPreview;
+  user: IUserOutput;
   onClick?: (e: any) => void;
 }

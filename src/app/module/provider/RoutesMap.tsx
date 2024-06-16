@@ -1,12 +1,13 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router";
 
-import { routes } from "@/app/config/routes.tsx";
+import { useAuthContext } from "@/app/module/hooks/useAuthContext.ts";
 
 const RoutesMap = (): React.ReactElement => {
+  const { routesPrivate } = useAuthContext();
   return (
     <Routes>
-      {routes.map((route) => (
+      {routesPrivate.map((route) => (
         <Route
           key={route.path}
           path={route.path}

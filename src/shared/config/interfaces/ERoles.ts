@@ -1,5 +1,6 @@
 export enum ERole {
-  DMK = "DMK",
-  HeadState = "HEAD_STATE",
-  Foreman = "FOREMAN",
+  ADMIN = "ADMIN",
+  DMK = "DIMK",
+  HeadState = "N_PLACE",
+  Foreman = "N_EXPORT",
 }
