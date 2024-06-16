@@ -85,15 +85,10 @@ const DrawerReportForm = ({
                 value={value}
                 label={'Отдел'}
                 placeholder={'Выберите отдел'}
-                options={departmentPreviewMock.map(
-                  (department) =>
-                    [
-                      {
-                        label: department.name,
-                        value: department.name,
-                      },
-                    ][0]
-                )}
+                options={departmentPreviewMock.map((department) => ({
+                  label: department.name,
+                  value: department.name,
+                }))}
                 onChange={onChange}
                 error={error?.message}
                 allowClear
@@ -122,15 +117,10 @@ const DrawerReportForm = ({
                 value={value}
                 label={'Сортамент'}
                 placeholder={'Выберите сортамент'}
-                options={assortmentPreviewMock.map(
-                  (assortment) =>
-                    [
-                      {
-                        label: assortment.name,
-                        value: assortment.name,
-                      },
-                    ][0]
-                )}
+                options={assortmentPreviewMock.map((assortment) => ({
+                  label: assortment.name,
+                  value: assortment.name,
+                }))}
                 onChange={onChange}
                 error={error?.message}
                 allowClear

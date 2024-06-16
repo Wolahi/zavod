@@ -137,15 +137,10 @@ const DrawerUserForm = ({
                 value={value}
                 label={'Отдел'}
                 placeholder={'Выберите отдел'}
-                options={departmentPreviewMock.map(
-                  (department) =>
-                    [
-                      {
-                        label: department.name,
-                        value: department.name,
-                      },
-                    ][0]
-                )}
+                options={departmentPreviewMock.map((department) => ({
+                  label: department.name,
+                  value: department.name,
+                }))}
                 onChange={onChange}
                 error={error?.message}
                 allowClear
