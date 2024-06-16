@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Drawer } from "antd";
+import { Button, Drawer, Image, Upload } from "antd";
+import { RcFile } from "antd/es/upload";
 
 import { drawerReportFormSchema } from "../config/drawerReportFormSchema";
 
@@ -10,34 +12,77 @@ import { IDrawerReportForm } from "./interfaces/IDrawerReportForm";
 
 import styles from "./DrawerReportForm.module.scss";
 
-import { DrawerFormExtra, Input, Typography } from "@/shared";
+import useReportForm from "@/features/DrawerReportForm/module/useReportForm.ts";
+import { DrawerFormExtra, Input, Select, Typography } from "@/shared";
+import { EReportType } from "@/shared/config/interfaces/EReportType.ts";
+import { translateReportType } from "@/shared/config/translateReportType.ts";
+import useGetAssortment from "@/shared/module/useGetAssortment.ts";
+import useGetDepartment from "@/shared/module/useGetDepartment.ts";
+import useGetObjs from "@/shared/module/useGetObjs.ts";
+import useImageStorage from "@/shared/module/useImageStore.ts";
 
 const DrawerNewUserForm = ({
   report,
   open,
   onClose,
+  setReport,
 }: IDrawerReport): React.ReactElement => {
   const { control, handleSubmit, reset } = useForm<IDrawerReportForm>({
     resolver: yupResolver(drawerReportFormSchema),
   });
+  const { setImageInStorage, image, deleteImage, loading } = useImageStorage();
+  const { objs } = useGetObjs();
+  const { assortment } = useGetAssortment();
+  const { department } = useGetDepartment();
+  const { addReport, updateReport, deleteReport } = useReportForm();
 
   useEffect(() => {
-    reset({
-      object: report?.object.name,
-      assortment: report?.assortment.name,
-      department: report?.department,
-      count: Number(report ? report?.count : 1),
-    });
+    if (report) {
+      reset({
+        obj: report?.obj.id,
+        assortment: report?.assortment.id,
+        department: report?.department.id,
+        type: report.type,
+        count: Number(report ? report?.count : 1),
+      });
+    }
   }, [report, reset]);
 
-  const onSubmit = (data: IDrawerReportForm) => {
-    console.log(data);
-    reset();
-    onClose();
+  const handleChangeImage = async (info: RcFile) => {
+    if (info) {
+      await setImageInStorage(info);
+      return "все ок";
+    }
+
+    return "Не оч";
   };
 
-  const onDelete = () => {
-    console.log("deleted");
+  const onSubmit = async (data: IDrawerReportForm) => {
+    if (report) {
+      const res = await updateReport(data, report.id);
+      setReport((prev) => [
+        ...prev.filter((rep) => rep.id !== res.data.id),
+        res.data,
+      ]);
+      reset();
+      onClose();
+    } else {
+      if (image) {
+        const res = await addReport(data, image);
+        setReport((prev) => [...prev, res.data]);
+        reset();
+        onClose();
+      }
+    }
+  };
+
+  const onDelete = async () => {
+    if (report) {
+      await deleteReport(report?.id);
+      setReport((prev) => [...prev.filter((rep) => rep.id !== report.id)]);
+      reset();
+      onClose();
+    }
   };
 
   return (
@@ -70,14 +115,41 @@ const DrawerNewUserForm = ({
         <Typography type={"textM"}>
           {report ? "Редактирование отчета" : "Добавление отчета"}
         </Typography>
+        {!report && (
+          <div>
+            {!image ? (
+              <Upload
+                listType="picture-card"
+                showUploadList={false}
+                action={handleChangeImage}
+              >
+                <button style={{ border: 0, background: "none" }} type="button">
+                  {loading ? <LoadingOutlined /> : <PlusOutlined />}
+                  <div style={{ marginTop: 8 }}>Загрузить</div>
+                </button>
+              </Upload>
+            ) : (
+              <Button
+                danger
+                className={styles.imagePreview}
+                onClick={deleteImage}
+              >
+                <Image src={image.url} alt="fd" preview={false} />
+              </Button>
+            )}
+          </div>
+        )}
         <Controller
           control={control}
           name="department"
           render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <Input
+            <Select
               value={value}
               label={"Отдел"}
-              name={"department"}
+              options={department.map((department) => ({
+                value: department.id,
+                label: department.name,
+              }))}
               placeholder={"Введите отдел"}
               error={error?.message}
               onChange={onChange}
@@ -86,13 +158,16 @@ const DrawerNewUserForm = ({
         />
         <Controller
           control={control}
-          name="object"
+          name="obj"
           render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <Input
+            <Select
               label={"Объект"}
               value={value}
               onChange={onChange}
-              name={"object"}
+              options={objs.map((obj) => ({
+                value: obj.id,
+                label: obj.name,
+              }))}
               placeholder={"Введите объект"}
               error={error?.message}
             />
@@ -102,12 +177,32 @@ const DrawerNewUserForm = ({
           control={control}
           name="assortment"
           render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <Input
+            <Select
               label={"Сортамент"}
-              name="assortment"
+              options={assortment.map((assortment) => ({
+                value: assortment.id,
+                label: `${assortment.name} Вес: ${assortment.count}тн`,
+              }))}
               value={value}
               onChange={onChange}
               placeholder={"Введите сортамент"}
+              error={error?.message}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="type"
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
+            <Select
+              label={"Тип работ"}
+              options={Object.keys(translateReportType).map((type) => ({
+                value: type,
+                label: translateReportType[type as EReportType],
+              }))}
+              value={value}
+              onChange={onChange}
+              placeholder={"Введите тип"}
               error={error?.message}
             />
           )}
