@@ -1,14 +1,13 @@
-import { useState } from 'react';
-import { FileAddOutlined } from '@ant-design/icons';
-import { FloatButton } from 'antd';
+import { useState } from "react";
+import { FileAddOutlined } from "@ant-design/icons";
+import { FloatButton } from "antd";
 
-import styles from './AssortmentsList.module.scss';
+import styles from "./AssortmentsList.module.scss";
 
-import { AssortmentCard } from '@/entities';
-import { DrawerAssortmentForm } from '@/features';
-import { assortmentPreviewMock } from '@/shared/config/assortmentPreviewMock';
-import { IAssortmentOutput } from '@/shared/config/interfaces/IAssortmentOutput';
-import useGetAssortment from '@/shared/module/useGetAssortment';
+import { AssortmentCard } from "@/entities";
+import { DrawerAssortmentForm } from "@/features";
+import { IAssortmentOutput } from "@/shared/config/interfaces/IAssortmentOutput";
+import useGetAssortment from "@/shared/module/useGetAssortment";
 
 const AssortmentsList = (): React.ReactElement => {
   const [assortmentData, setAssortmentData] =
@@ -50,11 +49,11 @@ const AssortmentsList = (): React.ReactElement => {
         setAssortment={setAssortment}
       />
       <FloatButton
-        shape='square'
+        shape="square"
         tooltip={<div>Сортамент</div>}
         icon={<FileAddOutlined />}
         onClick={() => handleDrawer()}
-        style={{ bottom: '90px', boxShadow: 'none' }}
+        style={{ bottom: "90px", boxShadow: "none" }}
       />
     </div>
   );

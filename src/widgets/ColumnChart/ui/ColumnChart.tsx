@@ -1,23 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import styles from './ColumnChart.module.scss';
-
-import { useCreateColumnChart } from '@/shared/lib/hooks/useCreateColumnChart/useCreateColumnChart';
+import { useCreateColumnChart } from "@/shared/lib/hooks/useCreateColumnChart/useCreateColumnChart";
 
 const ColumnChart = () => {
   const [createRoot] = useCreateColumnChart();
   useEffect(() => {
-    let root = createRoot('columnchartdiv');
+    let root = createRoot("columnchartdiv");
     return () => {
       root.dispose();
     };
   });
   return (
     <div
-      id='columnchartdiv'
+      id="columnchartdiv"
       style={{
-        width: '500px',
-        height: '350px',
+        width: "500px",
+        height: "350px",
       }}
     ></div>
   );
