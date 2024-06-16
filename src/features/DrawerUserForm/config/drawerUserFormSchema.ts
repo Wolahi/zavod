@@ -1,13 +1,14 @@
-import * as yup from 'yup';
+import * as yup from "yup";
 
 export const drawerUserFormSchema = (isCreate: boolean) => {
   return yup.object().shape({
-    login: yup.string().required('Логин обязателен'),
+    username: yup.string().required("Логин обязателен"),
+    name: yup.string().required("Имя обязательно"),
     password: yup.lazy(() => {
-      if (isCreate) return yup.string().required('Пароль обязателен');
+      if (isCreate) return yup.string().required("Пароль обязателен");
       return yup.string();
     }),
-    role: yup.string().required('Роль обязательна'),
-    department: yup.string().required('Отдел обязателен'),
+    role: yup.string().required("Роль обязательна"),
+    department: yup.string().required("Отдел обязателен"),
   });
 };
