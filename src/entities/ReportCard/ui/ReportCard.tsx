@@ -5,6 +5,8 @@ import { IReportCardProps } from "./interfaces/IReportCardProps";
 import styles from "./ReportCard.module.scss";
 
 import { Typography } from "@/shared";
+import { EReportType } from "@/shared/config/interfaces/EReportType.ts";
+import { translateReportType } from "@/shared/config/translateReportType.ts";
 
 const ReportCard = ({
   report,
@@ -38,6 +40,12 @@ const ReportCard = ({
         <Typography
           type={"description"}
         >{`Объект: ${report.obj.name}`}</Typography>
+        <Typography
+          type={"description"}
+        >{`Создал: ${report.user.name}`}</Typography>
+        <Typography
+          type={"description"}
+        >{`Тип Работ: ${translateReportType[report.type as EReportType]}`}</Typography>
       </div>
     </Card>
   );
