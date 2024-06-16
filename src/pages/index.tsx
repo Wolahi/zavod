@@ -1,5 +1,5 @@
 import Departments from './Departments/ui/Departments.tsx';
-import Guide from './Guide/ui/Guide.tsx';
+import Dictionary from './Dictionary/ui/Dictionary.tsx';
 import Login from './Login/ui/Login.tsx';
 import NotFound from './NotFound/ui/NotFound.tsx';
 import Reports from './Reports/ui/Reports.tsx';
@@ -14,6 +14,6 @@ export {
   Statistic,
   Reports,
   WorkPlan,
-  Guide,
+  Dictionary,
   NotFound,
 };

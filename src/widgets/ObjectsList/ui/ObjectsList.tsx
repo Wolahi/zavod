@@ -4,14 +4,13 @@ import { FloatButton } from 'antd';
 
 import useGetObjects from '../model/useGetObjects';
 
-import styles from './OrdersList.module.scss';
+import styles from './ObjectsList.module.scss';
 
-import { ObjectCard, OrderCard } from '@/entities';
+import { ObjectCard } from '@/entities';
 import { DrawerOrderForm } from '@/features';
 import { IObjectOutput } from '@/shared/config/interfaces/IObjectOutput';
-import { orderPreviewMock } from '@/shared/config/orderPreviewMock';
 
-const OrdersList = (): React.ReactElement => {
+const ObjectsList = (): React.ReactElement => {
   const [objectData, setObjectData] = useState<IObjectOutput | null>(null);
   const [open, setOpen] = useState(false);
   const { objects, setObjects } = useGetObjects();
@@ -60,4 +59,4 @@ const OrdersList = (): React.ReactElement => {
   );
 };
 
-export default OrdersList;
+export default ObjectsList;

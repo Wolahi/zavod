@@ -1,9 +1,9 @@
-import styles from './Guide.module.scss';
+import styles from './Dictionary.module.scss';
 
 import { Typography } from '@/shared';
-import { AssortmentsList, OrdersList } from '@/widgets';
+import { AssortmentsList, ObjectsList } from '@/widgets';
 
-const Guide = (): React.ReactElement => {
+const Dictionary = (): React.ReactElement => {
   return (
     <div className={styles.root}>
       <div>
@@ -20,12 +20,12 @@ const Guide = (): React.ReactElement => {
           type='title'
           style={{ display: 'flex', justifyContent: 'center' }}
         >
-          Заказы
+          Объекты
         </Typography>
-        <OrdersList />
+        <ObjectsList />
       </div>
     </div>
   );
 };
 
-export default Guide;
+export default Dictionary;
