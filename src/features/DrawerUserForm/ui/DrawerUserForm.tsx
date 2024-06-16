@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Drawer } from 'antd';
-import { Select as AntdSelect } from 'antd';
 
 import styles from './DrawerUserForm.module.scss';
 
