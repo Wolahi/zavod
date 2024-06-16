@@ -63,7 +63,7 @@ export const routes: IRouteItem[] = [
     element: <Statistic />,
     title: 'Статистика',
     icon: <AreaChartOutlined />,
-    roles: [ERole.DMK, ERole.ADMIN],
+    roles: [ERole.DMK, ERole.ADMIN, ERole.HeadState],
   },
   {
     path: ERoute.Reports,
@@ -71,7 +71,7 @@ export const routes: IRouteItem[] = [
     isPrivate: true,
     title: 'Отчеты',
     icon: <AuditOutlined />,
-    roles: [ERole.DMK, ERole.ADMIN, ERole.HeadState],
+    roles: [ERole.ADMIN, ERole.HeadState],
   },
   {
     path: ERoute.WorkPlan,
