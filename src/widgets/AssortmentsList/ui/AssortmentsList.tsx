@@ -7,13 +7,14 @@ import styles from './AssortmentsList.module.scss';
 import { AssortmentCard } from '@/entities';
 import { DrawerAssortmentForm } from '@/features';
 import { assortmentPreviewMock } from '@/shared/config/assortmentPreviewMock';
-import { IAssortment } from '@/shared/config/interfaces/IAssortment';
+import { IAssortmentOutput } from '@/shared/config/interfaces/IAssortmentOutput';
+import useGetAssortment from '@/shared/module/useGetAssortment';
 
 const AssortmentsList = (): React.ReactElement => {
+  const [assortmentData, setAssortmentData] =
+    useState<IAssortmentOutput | null>(null);
   const [open, setOpen] = useState(false);
-  const [assortmentData, setAssortmentData] = useState<IAssortment | null>(
-    null
-  );
+  const { assortment, setAssortment } = useGetAssortment();
 
   const showDrawer = () => {
     setOpen(true);
@@ -23,10 +24,9 @@ const AssortmentsList = (): React.ReactElement => {
     setOpen(false);
   };
 
-  const handleDrawer = (assortment?: IAssortment) => {
+  const handleDrawer = (assortment?: IAssortmentOutput) => {
     if (assortment) {
       setAssortmentData(assortment);
-      console.log(assortment);
     } else {
       setAssortmentData(null);
     }
@@ -35,25 +35,26 @@ const AssortmentsList = (): React.ReactElement => {
 
   return (
     <div className={styles.root}>
-      {assortmentPreviewMock.map((assortment) => (
+      {assortment.map((assort) => (
         <AssortmentCard
-          key={assortment.id}
-          assortment={assortment}
-          onClick={() => handleDrawer(assortment)}
+          key={assort.id}
+          assortment={assort}
+          onClick={() => handleDrawer(assort)}
         />
       ))}
 
+      <DrawerAssortmentForm
+        assortment={assortmentData}
+        open={open}
+        onClose={onClose}
+        setAssortment={setAssortment}
+      />
       <FloatButton
         shape='square'
         tooltip={<div>Сортамент</div>}
         icon={<FileAddOutlined />}
         onClick={() => handleDrawer()}
         style={{ bottom: '90px', boxShadow: 'none' }}
-      />
-      <DrawerAssortmentForm
-        open={open}
-        onClose={onClose}
-        assortment={assortmentData}
       />
     </div>
   );

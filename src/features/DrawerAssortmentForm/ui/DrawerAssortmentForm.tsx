@@ -1,47 +1,73 @@
-import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Drawer } from "antd";
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Drawer } from 'antd';
 
-import { drawerAssortmentFormSchema } from "../config/drawerAssortmentFormSchema";
+import styles from './DrawerAssortmentForm.module.scss';
 
-import { IDrawerAssortment } from "./interfaces/IDrawerAssortment";
-import { IDrawerAssortmentForm } from "./interfaces/IDrawerAssortmentForm";
-
-import styles from "./DrawerAssortmentForm.module.scss";
-
-import { DrawerFormExtra, Input, Typography } from "@/shared";
+import { drawerAssortmentFormSchema } from '@/features/DrawerAssortmentForm/config/drawerAssortmentFormSchema';
+import useAssortmentForm from '@/features/DrawerAssortmentForm/module/useAssortmentForm';
+import { IDrawerAssortment } from '@/features/DrawerAssortmentForm/ui/interfaces/IDrawerAssortment';
+import { IDrawerAssortmentForm } from '@/features/DrawerAssortmentForm/ui/interfaces/IDrawerAssortmentForm';
+import { DrawerFormExtra, Input, Typography } from '@/shared';
 
 const DrawerAssortmentForm = ({
   assortment,
   open,
   onClose,
+  setAssortment,
 }: IDrawerAssortment) => {
   const { control, handleSubmit, reset } = useForm<IDrawerAssortmentForm>({
     resolver: yupResolver(drawerAssortmentFormSchema),
   });
+  const { addAssortment, updateAssortment, deleteAssortment } =
+    useAssortmentForm();
 
   useEffect(() => {
-    reset({
-      name: assortment?.name,
-      weight: Number(assortment?.weight),
-    });
+    if (assortment) {
+      reset({
+        name: assortment?.name,
+        count: Number(assortment?.count),
+      });
+    }
+
+    return () => {
+      reset();
+    };
   }, [assortment, reset]);
 
-  const onSubmit = (data: IDrawerAssortmentForm) => {
-    console.log(data);
+  const onSubmit = async (data: IDrawerAssortmentForm) => {
+    if (assortment) {
+      const res = await updateAssortment(assortment?.id, data);
+      setAssortment((prev) => [
+        ...prev.filter((prev) => prev.id !== res.data.id),
+        res.data,
+      ]);
+    } else {
+      const res = await addAssortment(data);
+      if (res.data) {
+        setAssortment((prev) => [...prev, res.data]);
+      }
+    }
     onClose();
     reset();
   };
 
-  const onDelete = () => {
-    console.log("deleted");
+  const onDelete = async () => {
+    if (assortment) {
+      await deleteAssortment(assortment?.id);
+      setAssortment((prev) =>
+        prev.filter((prev) => prev.id !== assortment?.id)
+      );
+    }
+    onClose();
+    reset();
   };
 
   return (
     <Drawer
-      styles={{ body: { padding: "15px" } }}
-      placement={"right"}
+      styles={{ body: { padding: '15px' } }}
+      placement={'right'}
       width={520}
       onClose={onClose}
       open={open}
@@ -54,8 +80,8 @@ const DrawerAssortmentForm = ({
         ) : (
           <div className={styles.buttonsWrapper}>
             <Button
-              type="primary"
-              htmlType={"submit"}
+              type='primary'
+              htmlType={'submit'}
               onClick={handleSubmit(onSubmit)}
             >
               Добавить
@@ -65,18 +91,18 @@ const DrawerAssortmentForm = ({
       }
     >
       <div className={styles.drawerBody}>
-        <Typography type={"textM"}>
-          {assortment ? "Редактирование сортамента" : "Добавление сортамента"}
+        <Typography type={'textM'}>
+          {assortment ? 'Редактирование сортамента' : 'Добавление сортамента'}
         </Typography>
         <Controller
           control={control}
-          name="name"
+          name='name'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Input
               value={value?.trim()}
-              label={"Название сортамента"}
-              name={"name"}
-              placeholder={"Введите название сортамента"}
+              label={'Название сортамента'}
+              name={'name'}
+              placeholder={'Введите название сортамента'}
               error={error?.message}
               onChange={onChange}
             />
@@ -84,16 +110,16 @@ const DrawerAssortmentForm = ({
         />
         <Controller
           control={control}
-          name="weight"
+          name='count'
           render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Input
               value={Number(value)}
-              label={"Вес (тн)"}
-              name={"weight"}
-              placeholder={"Введите вес (тн)"}
+              label={'Вес (тн)'}
+              name={'count'}
+              placeholder={'Введите вес (тн)'}
               error={error?.message}
               onChange={onChange}
-              type="number"
+              type='number'
               min={0}
               step={0.001}
             />

@@ -1,13 +1,13 @@
-import { ReactElement, useState } from "react";
-import { UserAddOutlined } from "@ant-design/icons";
-import { FloatButton } from "antd";
+import { ReactElement, useState } from 'react';
+import { UserAddOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
 
-import styles from "./UsersList.module.scss";
+import styles from './UsersList.module.scss';
 
-import { UserCard } from "@/entities";
-import { DrawerUserForm } from "@/features";
-import { IUserOutput } from "@/shared/config/interfaces/IUserOutput.ts";
-import useGetListUsers from "@/widgets/UsersList/model/useGetListUsers.ts";
+import { UserCard } from '@/entities';
+import { DrawerUserForm } from '@/features';
+import { IUserOutput } from '@/shared/config/interfaces/IUserOutput.ts';
+import useGetListUsers from '@/widgets/UsersList/model/useGetListUsers.ts';
 
 const UsersList = (): ReactElement => {
   const [userData, setUserData] = useState<IUserOutput | null>(null);
