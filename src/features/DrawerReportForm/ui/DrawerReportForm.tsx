@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Checkbox, Drawer } from 'antd';
+import { Button, Drawer } from 'antd';
 
 import { drawerReportFormSchema } from '../config/drawerReportFormSchema';
 
@@ -30,7 +30,6 @@ const DrawerReportForm = ({
       assortment: report?.assortment.name,
       department: report?.department,
       type: report?.type,
-      isProduction: report?.isProduction,
       count: Number(report ? report?.count : 1),
     });
   }, [report, reset]);
@@ -138,28 +137,6 @@ const DrawerReportForm = ({
               error={error?.message}
               allowClear
             />
-          )}
-        />
-        <Controller
-          control={control}
-          name='isProduction'
-          render={({ field: { value, onChange } }) => (
-            <div
-              style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}
-            >
-              <Checkbox
-                name={'isProduction'}
-                checked={value}
-                onChange={onChange}
-              >
-                <Typography
-                  type={'subtitle'}
-                  style={{ color: '#b7b7b7', userSelect: 'none' }}
-                >
-                  Производственный отдел
-                </Typography>
-              </Checkbox>
-            </div>
           )}
         />
         <Controller

@@ -7,7 +7,7 @@ import { IDepartamentOutput } from '@/shared/config/interfaces/IDepartamentOutpu
 const useGetDepartment = () => {
   const [department, setDepartment] = useState<IDepartamentOutput[]>([]);
 
-  const getDepartment = async (): Promise<
+  const getDepartments = async (): Promise<
     AxiosResponse<IDepartamentOutput[]>
   > => {
     return await $api.get('/api/department');
@@ -15,7 +15,7 @@ const useGetDepartment = () => {
 
   useEffect(() => {
     (async () => {
-      const req = await getDepartment();
+      const req = await getDepartments();
       setDepartment(req.data);
     })();
   }, []);

@@ -9,6 +9,5 @@ export interface IReport {
   assortment: IAssortment;
   count: string;
   type: EType;
-  isProduction: boolean;
   createdAt: string;
 }

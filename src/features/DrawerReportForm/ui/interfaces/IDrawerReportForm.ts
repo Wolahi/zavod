@@ -3,6 +3,5 @@ export interface IDrawerReportForm {
   object: string;
   assortment: string;
   type: string;
-  isProduction: boolean;
   count: number;
 }
