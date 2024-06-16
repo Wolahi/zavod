@@ -164,7 +164,10 @@ const DrawerReportForm = ({
                   value={value}
                   onChange={onChange}
                 >
-                  <Typography type={'subtitle'} style={{ color: '#b7b7b7' }}>
+                  <Typography
+                    type={'subtitle'}
+                    style={{ color: '#b7b7b7', userSelect: 'none' }}
+                  >
                     Производственный отдел
                   </Typography>
                 </Checkbox>
