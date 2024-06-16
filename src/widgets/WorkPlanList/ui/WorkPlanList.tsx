@@ -1,15 +1,19 @@
 import { ReactElement, useState } from 'react';
+import { FileAddOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
+
+import useGetWorkPlanList from '../module/useGetWorkPlanLists';
 
 import styles from './WorkPlan.module.scss';
 
 import { WorkPlanCard } from '@/entities';
 import { DrawerWorkPlan } from '@/features';
 import { IWorkPlan } from '@/shared/config/interfaces/IWorkPlan';
-import { workPlanPreviewMock } from '@/shared/config/workPlanPreviewMock';
 
 const WorkPlanList = (): ReactElement => {
-  const [workPlanData, setWorkPlanData] = useState<IWorkPlan | null>(null);
   const [open, setOpen] = useState(false);
+  const [workPlanData, setWorkPlanData] = useState<IWorkPlan | null>(null);
+  const { workPlanList, setWorkPlanList } = useGetWorkPlanList();
 
   const showDrawer = () => {
     setOpen(true);
@@ -30,14 +34,24 @@ const WorkPlanList = (): ReactElement => {
 
   return (
     <div className={styles.root}>
-      {workPlanPreviewMock.map((workPlan) => (
+      {workPlanList.map((workPlan) => (
         <WorkPlanCard
-          key={workPlan.assortment.id}
+          key={workPlan.objId.id}
           workPlan={workPlan}
           onClick={() => handleDrawer(workPlan)}
         />
       ))}
-      <DrawerWorkPlan open={open} onClose={onClose} workPlan={workPlanData} />
+      <FloatButton
+        onClick={() => handleDrawer()}
+        icon={<FileAddOutlined className={styles.floatButtonIcon} />}
+        className={styles.floatButton}
+      />
+      <DrawerWorkPlan
+        setWorkPlanList={setWorkPlanList}
+        open={open}
+        onClose={onClose}
+        workPlan={workPlanData}
+      />
     </div>
   );
 };
