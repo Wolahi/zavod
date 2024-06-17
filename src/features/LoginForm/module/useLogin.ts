@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { AxiosResponse } from "axios";
 
@@ -8,9 +9,21 @@ import { $api } from "@/shared/api/apiInstance.ts";
 import { ILoginOutput } from "@/shared/config/interfaces/ILoginOutput.ts";
 
 const useLogin = () => {
-  const { login } = useAuthContext();
+  const { login, user } = useAuthContext();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      const firstRoute = routes.find(
+        (route) => route.isPrivate && route.roles.includes(user.roles[0]),
+      );
+
+      if (firstRoute) {
+        navigate(firstRoute.path);
+      }
+    }
+  }, [navigate, user]);
 
   const loginReq = async (data: ILoginForm) => {
     const req: AxiosResponse<ILoginOutput> = await $api.post(
