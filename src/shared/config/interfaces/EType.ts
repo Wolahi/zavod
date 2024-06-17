@@ -1,5 +1,5 @@
 export enum EType {
-  Assembly = 'ASSEMBLY',
-  Welding = 'WELDING',
-  Loading = 'LOADING',
+  Assembly = "Assembly",
+  Welding = "Welding",
+  Loading = "Loading",
 }

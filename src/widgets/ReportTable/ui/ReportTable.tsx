@@ -1,22 +1,51 @@
 import { useState } from "react";
-import { DatePicker, Table } from "antd";
+import { Button, DatePicker, Table } from "antd";
+import dayjs from "dayjs";
+import { saveAs } from "file-saver";
 
 import styles from "./ReportTable.module.scss";
 
 import { Select } from "@/shared";
-import { reportPreviewMock } from "@/shared/config/reportPreviewMock";
+import useGetDepartment from "@/shared/module/useGetDepartment.ts";
+import { columns } from "@/widgets/ReportTable/config/columns.tsx";
+import useGetStats from "@/widgets/ReportTable/module/useGetStats.ts";
 
-const { Column, ColumnGroup } = Table;
 const { RangePicker } = DatePicker;
 
 const ReportTable = () => {
-  const [selectValue, setSelectValue] = useState();
+  const { data, getStats, getXlsx, getXlsxDep } = useGetStats();
+  const [timeState, setTimeState] = useState<string[]>([]);
+  const [selectDepartment, setSelectDepartment] = useState<number | null>(null);
+  const { department } = useGetDepartment();
 
-  const handleSelect = (data: any) => {
-    setSelectValue(data);
+  const handleDatePicker = async (data: string[]) => {
+    const [dateAt, dateTo] = data;
+    setTimeState([
+      dayjs(dateAt).format("YYYY-MM-DD"),
+      dayjs(dateTo).format("YYYY-MM-DD"),
+    ]);
+    if (dateAt && dateTo) {
+      await getStats(
+        dayjs(dateAt).format("YYYY-MM-DD"),
+        dayjs(dateTo).format("YYYY-MM-DD"),
+      );
+    }
   };
-  const handleDatePicker = (data: string[]) => {
-    console.log(data);
+
+  const saveFile = async () => {
+    if (timeState.length > 0) {
+      const [dateAt, dateTo] = timeState;
+      const res = await getXlsx(dateAt, dateTo);
+      saveAs(res.data.url);
+    }
+  };
+
+  const saveFileDepartment = async () => {
+    if (timeState.length > 0 && selectDepartment) {
+      const [dateAt, dateTo] = timeState;
+      const res = await getXlsxDep(dateAt, dateTo, selectDepartment);
+      saveAs(res.data.url);
+    }
   };
 
   return (
@@ -24,87 +53,36 @@ const ReportTable = () => {
       <div className={styles.pickers}>
         <RangePicker
           format={"DD-MM-YYYY"}
-          onChange={(value, dateString) => {
-            console.log(value);
-            handleDatePicker(dateString);
+          onChange={(value) => {
+            if (value && value.length > 0) {
+              handleDatePicker([value[0] as any, value[1] as any]);
+            }
           }}
-        />
-        <Select
-          value={selectValue}
-          placeholder={"Выберите отдел"}
-          onChange={handleSelect}
-          allowClear
         />
       </div>
       <div className={styles.tables}>
         <Table
-          dataSource={reportPreviewMock}
+          columns={columns}
+          dataSource={(data as any) || []}
           pagination={false}
-          rowKey={"id"}
-          scroll={{ x: "100%" }}
-        >
-          <Column
-            title={
-              <span>
-                №<br />
-                п/п
-              </span>
-            }
-            dataIndex="id"
-            key="id"
-            width="60px"
-            align="center"
-          />
-          <Column
-            title="Заказ"
-            key="orderName"
-            align="center"
-            render={() => '203 - МАХ ТЦ "Максимир"'}
-          />
-          <Column
-            title="Наименование"
-            key="assortmentName"
-            align="center"
-            render={(report) => report.assortment.name}
-          />
-          <Column
-            title="Объект"
-            key="objectName"
-            align="center"
-            render={(report) => report.object.name}
-          />
-
-          <ColumnGroup title="1 ед.">
-            <Column
-              title="шт."
-              key="pieceName"
-              align="center"
-              render={() => 1}
-            />
-            <Column
-              title="тн."
-              key="weightOfPieceName"
-              align="center"
-              render={(report) => report.assortment.weight}
-            />
-          </ColumnGroup>
-          <ColumnGroup title="Количество">
-            <Column
-              title="шт."
-              key="pieceName"
-              align="center"
-              render={(report) => report.count}
-            />
-            <Column
-              title="тн."
-              key="totalWeight"
-              align="center"
-              render={(report) =>
-                (report.count * report.assortment.weight).toFixed(3)
-              }
-            />
-          </ColumnGroup>
-        </Table>
+        />
+        {data && (
+          <div className={styles.items}>
+            <Button onClick={saveFile}>Выгрузить по всем отделам</Button>
+            <div className={styles.items}>
+              <Select
+                options={department.map((dep) => ({
+                  value: dep.id,
+                  label: dep.name,
+                }))}
+                onChange={(value) => setSelectDepartment(value)}
+              />
+              <Button disabled={!selectDepartment} onClick={saveFileDepartment}>
+                Выгрузить по отделу
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

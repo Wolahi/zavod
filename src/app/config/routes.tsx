@@ -1,4 +1,5 @@
 import {
+  AreaChartOutlined,
   AuditOutlined,
   BookOutlined,
   FileTextOutlined,
@@ -14,6 +15,7 @@ import {
   Login,
   NotFound,
   Reports,
+  Statistic,
   Users,
   WorkPlan,
 } from "@/pages";
@@ -22,7 +24,7 @@ import { ERole } from "@/shared/config/interfaces/ERoles.ts";
 export enum ERoute {
   Login = "/",
   Users = "/users",
-  // Statistics = '/statistics',
+  Statistics = "/statistics",
   Reports = "/reports",
   Departments = "/departments",
   WorkPlan = "/work-plan",
@@ -55,14 +57,14 @@ export const routes: IRouteItem[] = [
     icon: <SolutionOutlined />,
     roles: [ERole.DMK, ERole.ADMIN],
   },
-  // {
-  //   path: ERoute.Statistics,
-  //   isPrivate: true,
-  //   element: <Statistic />,
-  //   title: 'Статистика',
-  //   icon: <AreaChartOutlined />,
-  //   roles: [ERole.DMK, ERole.ADMIN, ERole.HeadState],
-  // },
+  {
+    path: ERoute.Statistics,
+    isPrivate: true,
+    element: <Statistic />,
+    title: "Статистика",
+    icon: <AreaChartOutlined />,
+    roles: [ERole.DMK, ERole.ADMIN, ERole.HeadState],
+  },
   {
     path: ERoute.Reports,
     element: <Reports />,
