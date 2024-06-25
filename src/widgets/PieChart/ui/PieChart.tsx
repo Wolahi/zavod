@@ -1,33 +1,46 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import { DatePicker, Typography } from "antd";
 
-import styles from './PieChart.module.scss';
+import styles from "./PieChart.module.scss";
 
-import { pieChartMock } from '@/shared/config/pieChartMock';
-import { useCreatePieChart } from '@/shared/lib/hooks/useCreatePieChart/useCreatePieChart';
+import { useCreatePieChart } from "@/shared/lib/hooks/useCreatePieChart/useCreatePieChart";
+import useGetPieChart from "@/widgets/PieChart/module/useGetPieChart.ts";
+
+const { RangePicker } = DatePicker;
 
 const PieChart = () => {
   const [createRoot] = useCreatePieChart();
+  const { handleDatePicker, pieData } = useGetPieChart();
   useEffect(() => {
-    let root = createRoot(
-      'Series',
-      'country',
-      'sales',
-      'chartdiv',
-      pieChartMock
-    );
-    return () => {
-      root.dispose();
-    };
+    if (pieData) {
+      let root = createRoot("Series", "country", "sales", "chartdiv", pieData);
+      return () => {
+        root.dispose();
+      };
+    }
   });
   return (
     <div className={styles.root}>
-      <div
-        id='chartdiv'
-        style={{
-          width: '100%',
-          height: '100%',
+      <RangePicker
+        height={64}
+        format={"DD-MM-YYYY"}
+        onChange={(value) => {
+          if (value && value.length > 0) {
+            handleDatePicker([value[0] as any, value[1] as any]);
+          }
         }}
-      ></div>
+      />
+      {pieData ? (
+        <div
+          id="chartdiv"
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        ></div>
+      ) : (
+        <Typography>Введите даты, для просмотра графика</Typography>
+      )}
     </div>
   );
 };

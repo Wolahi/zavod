@@ -1,5 +1,15 @@
 .root {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: 50px;
   padding: 50px 20px;
+}
+
+
+.charts {
+  display: flex;
+  gap: 20px;
 }

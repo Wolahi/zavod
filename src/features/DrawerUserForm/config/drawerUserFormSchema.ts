@@ -9,6 +9,6 @@ export const drawerUserFormSchema = (isCreate: boolean) => {
       return yup.string();
     }),
     role: yup.string().required("Роль обязательна"),
-    department: yup.string().required("Отдел обязателен"),
+    department: yup.number().required("Отдел обязателен"),
   });
 };

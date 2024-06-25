@@ -5,10 +5,11 @@ import { $api } from "@/shared/api/apiInstance.ts";
 import { IStatsReport } from "@/shared/config/interfaces/IStatsReport.ts";
 
 const useGetStats = () => {
-  const [data, setData] = useState<IStatsReport>();
+  const [data, setData] = useState<IStatsReport[]>();
+  const [objData, setObjData] = useState<any[]>([]);
 
   const getStats = async (dateAt: string, dateTo: string): Promise<void> => {
-    const res: AxiosResponse<IStatsReport> = await $api.get(
+    const res: AxiosResponse<IStatsReport[]> = await $api.get(
       "/api/stats/dstamp",
       {
         params: {
@@ -19,6 +20,14 @@ const useGetStats = () => {
     );
 
     setData(res.data);
+  };
+
+  const getObjStats = async (): Promise<void> => {
+    const res: AxiosResponse<IStatsReport[]> = await $api.get(
+      "/api/stats/stats-objects",
+    );
+
+    setObjData(res.data);
   };
 
   const getXlsx = async (
@@ -47,7 +56,7 @@ const useGetStats = () => {
     });
   };
 
-  return { data, getStats, getXlsx, getXlsxDep };
+  return { objData, data, getStats, getXlsx, getXlsxDep, getObjStats };
 };
 
 export default useGetStats;
